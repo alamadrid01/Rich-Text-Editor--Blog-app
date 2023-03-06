@@ -3,18 +3,31 @@ const bodyParser = require("body-parser");
 const cors = require("cors")
 const connect = require("./lib/connectDB")
 require('dotenv').config();
-
-
-connect();
+const blogRouter = require("./routes/blog")
 
 const app = express();
+
 const port = 5001
+
+app.use("/api", blogRouter)
+app.use(cors());
 
 
 app.get('/', (req, res) =>{
     res.json({message: 'welcome to wrong parameters'})
 })
 
-app.listen(port, () =>{
-    console.log('server is running')
-})
+
+const startServer = async() => {
+    try {
+        connect();
+      console.log('Connected to MongoDB database');
+      app.listen(port, () =>{
+        console.log('server is running')
+    })
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  
+  startServer();
