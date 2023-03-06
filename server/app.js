@@ -9,10 +9,12 @@ const app = express();
 
 const port = 5001
 
-app.use("/api", blogRouter)
 app.use(cors());
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
+app.use("/api", blogRouter)
 app.get('/', (req, res) =>{
     res.json({message: 'welcome to wrong parameters'})
 })
