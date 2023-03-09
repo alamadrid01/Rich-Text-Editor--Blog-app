@@ -12,14 +12,32 @@ const Viewer = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch blog posts data from backend API endpoint
-    axios.get("https://blog-app-v8b8.onrender.com/api/blog").then((response) => {
-      let mainData = response.data;
-      setBlogPosts(mainData);
+    const cachedData = localStorage.getItem("alamadridBlogData");
+    
+    const fetchData = () => {
+      axios
+        .get("https://blog-app-v8b8.onrender.com/api/blog")
+        .then((response) => {
+          const mainData = response.data;
+          setBlogPosts(mainData);
+          localStorage.setItem("alamadridBlogData", JSON.stringify(mainData));
+          setLoading(false);
+          console.log("new");
+        })
+        .catch((err) => {
+          toast.error("Error retrieving this post, try refreshing this page");
+        });
+    };
+
+    if (cachedData) {
+      setBlogPosts(JSON.parse(cachedData));
       setLoading(false);
-    }).catch((err) =>{
-      toast.error("Error retrieving this post, try refreshing this page")
-    })
+      console.log("processed");
+
+      fetchData();
+    } else {
+      fetchData();
+    }
   }, []);
 
   return (
@@ -32,7 +50,7 @@ const Viewer = () => {
         <section className="px-5 xl:max-w-6xl xl:mx-auto pb-20">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 px-5 mb-20 ">
             {blogPosts.map((rawContent, index) => {
-              const pic = (rawContent.blogImage.path);
+              const pic = rawContent.blogImage.path;
               return (
                 <article
                   key={index}
@@ -56,9 +74,9 @@ const Viewer = () => {
                         {rawContent.title}
                       </h4>
                       <div className="mt-[4%] max-h-[200px] box-border overflow-hidden">
-                      <p className="text-sm leading-relaxed w-full text-justify">
-                        {rawContent.description}
-                      </p>
+                        <p className="text-sm leading-relaxed w-full text-justify">
+                          {rawContent.description}
+                        </p>
                       </div>
                     </div>
                   </Link>
