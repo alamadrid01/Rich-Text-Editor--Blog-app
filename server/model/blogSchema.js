@@ -15,6 +15,20 @@ const Blogs = new Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: true,
+  },
+  blogImage: {
+    image: {
+      type: String,
+      required: true,
+    },
+    path: {
+      type: String,
+      required: true
+    }
+  },
   createdAt: {
     type: Date,
     default: Date.now,
