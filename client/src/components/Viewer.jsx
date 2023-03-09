@@ -13,7 +13,7 @@ const Viewer = () => {
 
   useEffect(() => {
     // Fetch blog posts data from backend API endpoint
-    axios.get("http://localhost:5001/api/blog").then((response) => {
+    axios.get("https://blog-app-v8b8.onrender.com/api/blog").then((response) => {
       let mainData = response.data;
       setBlogPosts(mainData);
       setLoading(false);

@@ -66,7 +66,7 @@ const Viewer = () => {
   const { slug } = useParams();
 
   useEffect(() => {
-    axios.get(`http://localhost:5001/api/blog/${slug}`).then((response) => {
+    axios.get(`https://blog-app-v8b8.onrender.com/api/blog/${slug}`).then((response) => {
       const mainData = response.data;
       setBlogPosts(mainData);
       setLoading(false);
