@@ -20,12 +20,12 @@ function Footer() {
   return (
     <>
       {
-        show && <button
+        show ? <button
         className="fixed bottom-[65px] right-[65px]"
         onClick={() => Navigate("/create-blog")}
-      >
+      > 
         <img className="w-[55px] h-[55px]" src={Create} alt="create icon" />
-      </button>
+      </button> : ""
       }
       <div className="border-t w-full p-3 border-black text-center bottom-[-100px] relative">
         <p>Made by Alamadrid</p>
