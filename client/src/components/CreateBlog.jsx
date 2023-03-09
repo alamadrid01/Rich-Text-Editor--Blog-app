@@ -294,6 +294,7 @@ const CreateBlog = () => {
             id="title"
             name="title"
             required
+            autoFocus
           />
           {error && title <= 0 ? (
             <p className="text-[red] mt-0 ml-1 text-[15px]">
