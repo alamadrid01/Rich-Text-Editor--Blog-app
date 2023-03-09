@@ -1,0 +1,75 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "draft-js/dist/Draft.css";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Link } from "react-router-dom";
+import ComMain from "./ComMain";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const Viewer = () => {
+  const [blogPosts, setBlogPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch blog posts data from backend API endpoint
+    axios.get("http://localhost:5001/api/blog").then((response) => {
+      let mainData = response.data;
+      setBlogPosts(mainData);
+      setLoading(false);
+    }).catch((err) =>{
+      toast.error("Error retrieving this post, try refreshing this page")
+    })
+  }, []);
+
+  return (
+    <>
+      <ComMain />
+      <ToastContainer />
+      {loading ? (
+        <div className="spinner w-[50%] mx-auto mt-5"></div>
+      ) : (
+        <section className="px-5 xl:max-w-6xl xl:mx-auto pb-20">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 px-5 mb-20 ">
+            {blogPosts.map((rawContent, index) => {
+              const pic = (rawContent.blogImage.path);
+              return (
+                <article
+                  key={index}
+                  className="hover:opacity-75 hover:transition-all duration-300  w-full mx-auto mt-[60px]"
+                >
+                  <Link to={`/blog/${rawContent._id}`}>
+                    <div className="items-center justify-center flex lg:mt-[0%] mt-[10%]"></div>
+                    <div>
+                      <div className="items-center justify-center flex lg:pt-[3%] pt-[5%]">
+                        <div className="w-[800px] h-[350px]">
+                          <LazyLoadImage
+                            className="w-[800px] h-[350px] object-cover rounded-md"
+                            src={pic}
+                            lazy="loading"
+                            effect="blur"
+                            alt={rawContent.title}
+                          />
+                        </div>
+                      </div>
+                      <h4 className="mt-6 header font-semibold text-xl lg:w-full ">
+                        {rawContent.title}
+                      </h4>
+                      <div className="mt-[4%] max-h-[200px] box-border overflow-hidden">
+                      <p className="text-sm leading-relaxed w-full text-justify">
+                        {rawContent.description}
+                      </p>
+                      </div>
+                    </div>
+                  </Link>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      )}
+    </>
+  );
+};
+
+export default Viewer;
