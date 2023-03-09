@@ -105,6 +105,7 @@ const CreateBlog = () => {
       toast.error("Yooo!, fill in all the input fields");
       setError(true);
     } else {
+      setSubmit(true)
       const bodyData = new FormData();
       bodyData.append("title", title);
       bodyData.append("body", JSON.stringify(rawContentState));
@@ -125,6 +126,7 @@ const CreateBlog = () => {
           Navigate(`/blog/${slug}`);
         }, 1200);
       } catch (err) {
+        setSubmit(false)
         console.error(err.message);
         toast.error("Error creating this post");
       }
@@ -139,6 +141,7 @@ const CreateBlog = () => {
   const [author, setAuthor] = useState("");
   const [image, setImage] = useState("");
   const [error, setError] = useState(false);
+  const [submit, setSubmit] = useState(false)
 
   const handleEditorChange = (event) => {
     setEditorState(event);
@@ -442,8 +445,9 @@ const CreateBlog = () => {
       </div>
       <div className="flex justify-end ">
         <button
-          className="bg-indigo-800 rounded-md text-white px-5 py-3 align-right mt-5 hover:bg-indigo-600"
+          className={`${submit ? "bg-indigo-400" : "bg-indigo-800"} rounded-md text-white px-5 py-3 align-right mt-5 hover:bg-indigo-600`}
           onClick={submitHandler}
+          disabled={submit}
         >
           Create post
         </button>
