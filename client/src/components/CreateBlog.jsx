@@ -116,7 +116,7 @@ const CreateBlog = () => {
 
       try {
         const Response = await axios.post(
-          "http://localhost:5001/api/blog/",
+          "https://blog-app-v8b8.onrender.com/api/blog",
           bodyData
         );
         const slug = Response.data._id;
