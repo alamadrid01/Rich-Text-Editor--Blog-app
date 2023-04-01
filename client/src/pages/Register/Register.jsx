@@ -11,6 +11,8 @@ function Register() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const Data = {
@@ -65,7 +67,7 @@ function Register() {
             <button type="submit">Register</button>
             <div className="flex justify-between mt-4 w-[80%]">
               {" "}
-              <p>Sign in</p>
+              <p onClick={() => Navigate("/login")}>Sign in</p>
             </div>
           </form>
         </div>
