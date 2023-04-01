@@ -3,7 +3,11 @@ const bodyParser = require("body-parser");
 const cors = require("cors")
 const connect = require("./lib/connectDB")
 require('dotenv').config();
-const blogRouter = require("./routes/blog")
+const blogRouter = require("./routes/blog");
+const loginRoute = require("./routes/login");
+const registerRoute = require("./routes/register");
+
+
 
 const app = express();
 
@@ -16,6 +20,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use("/api", blogRouter)
+app.use("/api", loginRoute)
+app.use("/api", registerRoute)
 app.get('/', (req, res) =>{
     res.json({message: 'welcome to wrong parameters'})
 })
