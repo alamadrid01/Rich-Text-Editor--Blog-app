@@ -6,6 +6,7 @@ import Error from "./pages/Error";
 import Allblogs from "./pages/Allblogs";
 import CreateBlog from "./components/CreateBlog";
 import Viewer from "./components/Viewer";
+import Login from "./pages/Login/Login";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/blog/:slug" element={<SinglePost />} />
           <Route path="/" element={<Viewer />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/allblogs" element={<Allblogs />} />
           <Route path="/create-blog" element={<CreateBlog />} />
           <Route path="*" element={<Error />} />

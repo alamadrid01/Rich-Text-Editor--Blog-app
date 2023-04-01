@@ -5,7 +5,7 @@ function Header() {
   const text = "Tech and Lifestyle";
   const chars = text.split("");
   return (
-    <div className="text-center pt-12 lg:mt-[5%] mt-[8%] lg:w-[30%] mx-auto">
+    <div className="text-center pt-2 lg:mt-[0%] mt-[4%] lg:w-[30%] mx-auto">
       <p className="text-sm color black mb-3"></p>
       <motion.p
         initial={{ opacity: 0, scale: 0.5 }}
