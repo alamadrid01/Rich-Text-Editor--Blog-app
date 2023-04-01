@@ -7,6 +7,7 @@ import Navbar from "../../components/Navbar";
 function Register() {
   const Navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [fName, setFName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
@@ -41,14 +42,21 @@ function Register() {
           <img src={sign} alt="Sign in" />
         </div>
         <div className="right">
-          <h1>Welcome!</h1>
-          <p> Enter details to register.</p>
+          <h1 className="text-center">Welcome!</h1>
+          <p className="text-center"> Provide your details for registration.</p>
           <form onSubmit={handleSubmit}>
             <input
               type="text"
               placeholder="Full Name"
               value={fName}
               onChange={(e) => setFName(e.target.value)}
+              className="w-[100%] p-4 "
+            />
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="w-[100%] p-4 "
             />
             <input

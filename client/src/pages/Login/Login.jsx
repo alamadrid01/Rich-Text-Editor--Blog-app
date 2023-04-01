@@ -38,8 +38,8 @@ function Login() {
           <img src={sign} alt="Sign in" />
         </div>
         <div className="right">
-          <h1>Welcome!</h1>
-          <p> Enter details to login.</p>
+          <h1 className="text-center">Welcome!</h1>
+          <p className="text-center"> Enter details to login.</p>
           <form onSubmit={handleSubmit}>
             <input
               type="text"
