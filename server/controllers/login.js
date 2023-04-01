@@ -10,15 +10,15 @@ const Login = async (req, res) => {
         if(!findUser) return res.status(404).json({message: `No account found with this ${email}`})
         const match = await bcrypt.compare(password, findUser.password);  
         if(match){
+            console.log(findUser);
             res.json({"success": `User ${findUser} is logged in`})
         }else{
-            res.status(401);
+            res.status(401).json({message: "Not authorized"});
         }
         
     }catch(err){
         res.status(500).json({message: err.message})
     }
-
 }
 
 module.exports = {Login} ;

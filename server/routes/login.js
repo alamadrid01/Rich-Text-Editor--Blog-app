@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const Login = require("../controllers/login");
+const {Login} = require("../controllers/login");
+const multer = require("multer");
 
-router.post("/login", Login);
+const upload = multer();
+
+router.post("/login", upload.none(), Login);
 
 module.exports = router;
