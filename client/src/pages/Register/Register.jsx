@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../styles/Login.scss"
+import "../../styles/Login.scss";
 import sign from "../../assets/login.jpg";
 import Navbar from "../../components/Navbar";
 
-function Login() {
+function Register() {
   const Navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [fName, setFName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
@@ -39,8 +40,15 @@ function Login() {
         </div>
         <div className="right">
           <h1>Welcome!</h1>
-          <p> Enter details to login.</p>
+          <p> Enter details to register.</p>
           <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Full Name"
+              value={fName}
+              onChange={(e) => setFName(e.target.value)}
+              className="w-[100%] p-4 "
+            />
             <input
               type="text"
               placeholder="Email"
@@ -54,11 +62,10 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button type="submit">Login</button>
+            <button type="submit">Register</button>
             <div className="flex justify-between mt-4 w-[80%]">
               {" "}
-              <p onClick={() => alert("chill dude, i am not done with the application")}>Forgot password?</p>
-              <p onClick={() => Navigate("/register")}>Sign up</p>
+              <p>Sign in</p>
             </div>
           </form>
         </div>
@@ -67,4 +74,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

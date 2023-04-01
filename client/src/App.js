@@ -7,6 +7,7 @@ import Allblogs from "./pages/Allblogs";
 import CreateBlog from "./components/CreateBlog";
 import Viewer from "./components/Viewer";
 import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/blog/:slug" element={<SinglePost />} />
           <Route path="/" element={<Viewer />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/allblogs" element={<Allblogs />} />
           <Route path="/create-blog" element={<CreateBlog />} />
           <Route path="*" element={<Error />} />
