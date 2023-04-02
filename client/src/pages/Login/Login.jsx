@@ -27,9 +27,13 @@ function Login() {
           "https://blog-app-v8b8.onrender.com/api/login",
           bodyData
         );
-        toast.success(Response.data);
         console.log(Response.data);
         setError(false);
+        toast.success("Login successful")
+        setTimeout(() => {
+          Navigate("/profile");
+        }, 1500)
+    
       }catch(err){
         console.error(err.message)
         if(err.status === 500){

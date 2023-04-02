@@ -1,6 +1,7 @@
 import { React, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import emailjs from "@emailjs/browser";
+import Button from "./Button";
 
 function Newsletter() {
   const [email, setEmail] = useState("");
@@ -48,9 +49,7 @@ function Newsletter() {
           onChange={(e) => setEmail(e.target.value)}
           className="border-2 border-black px-6 py-3 rounded-md md:w-[200px] w-[300px] lg:w-[300px]"
         />
-        <button className="bg-black text-white md:px-4 px-6 py-3 w-[300px] lg:w-[130px] md:w-[90px] rounded-md hover:opacity-75 transistion-all duration-300">
-          Subcribe
-        </button>
+       <Button value="Subscribe"/>
         <Toaster
           position="top-center"
           toastOptions={{
