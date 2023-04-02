@@ -10,7 +10,7 @@ function Footer() {
   const currentUrl = location.pathname;
   
   React.useEffect(() => {
-    if(currentUrl === "/create-blog" || currentUrl === "/profile"){
+    if(currentUrl === "/create-blog" || currentUrl === "/profile" || currentUrl === "/login" || currentUrl === "/register"){
       setShow(false)
     }else{
       setShow(true)
