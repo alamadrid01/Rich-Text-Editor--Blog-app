@@ -47,8 +47,8 @@ const Viewer = () => {
       {loading ? (
         <div className="spinner w-[50%] mx-auto mt-5"></div>
       ) : (
-        <section className="px-5 xl:max-w-6xl xl:mx-auto pb-20">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 px-5 mb-20 ">
+        <section className="px-0 lg-px-5 xl:max-w-6xl xl:mx-auto pb-20">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 px-0 lg-px-5 mb-20 ">
             {blogPosts.map((rawContent, index) => {
               const pic = rawContent.blogImage.path;
               return (

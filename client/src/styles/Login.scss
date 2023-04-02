@@ -74,4 +74,21 @@
       }
     }
   }
+
+  @media (max-width: "900px"){
+    main{
+      padding: 0 20px;
+      gap: 100px;
+      
+    }
+  }
+   @media (max-width: "650px"){
+    main{
+      padding: 0 20px;
+
+      .left{
+        display: none;
+      }
+    }
+  }
 }
