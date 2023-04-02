@@ -3,6 +3,8 @@ import Navbar from "../../components/Navbar";
 import Message from "../../assets/message.svg"
 import profile from "../../assets/profile.svg";
 import Edit from "../../assets/edited.svg";
+import Edited from "../../assets/edit.svg"
+import Logout from "../../assets/logout.svg"
 
 const Profile = () => {
     const Navigate = useNavigate();
@@ -22,7 +24,7 @@ const Profile = () => {
         <div className="about flex flex-col gap-3 mt-5">
           <section className="bg-white rounded-md mt-5 py-5 px-2">
             <h2 className=" text-2xl text-[#262630]">My Account</h2>
-            <div className="flex gap-5 mt-6 px-4">
+            <div className="flex gap-5 mt-10 px-4">
               <div className="p-4 bg-gray-300 rounded-full">
                 <img src={profile} alt="" />
               </div>
@@ -52,7 +54,7 @@ const Profile = () => {
                   desktop publishing software like Aldus PageMaker including
                   versions of Lorem Ipsum.
                 </div>
-                <div className=" absolute left-[8%] top-1">
+                <div className=" absolute left-[8%] top-1 cursor-pointer">
                   <img src={Edit} alt="" className="w-[19px] h-[19px]" />
                 </div>
               </div>
@@ -60,9 +62,14 @@ const Profile = () => {
           </section>
           <section className="bg-white rounded-md mt-5 py-5 px-2">
             <h2 className=" text-2xl text-[#262630]">History</h2>
-            <div className="flex justify-between items-center px-5 mt-5">
+            <div className="flex justify-between items-center px-5 mt-10">
               <div className="flex gap-3 items-center">
-                <img class src={profile} alt="" className="w-[32px] h-[32px] rounded-full object-cover" />
+                <img
+                  class
+                  src={profile}
+                  alt=""
+                  className="w-[32px] h-[32px] rounded-full object-cover"
+                />
                 <h3 className="text-2xl text-gray-500">My journey in tech</h3>
               </div>
               <div className="flex gap-5">
@@ -83,6 +90,20 @@ const Profile = () => {
           </section>
           <section className="bg-white rounded-md mt-5 py-5 px-2">
             <h2 className=" text-2xl text-[#262630]">Account Settings</h2>
+            <div className="flex flex-col gap-3 px-5 mt-10">
+              <div className="flex gap-3 items-center cursor-pointer">
+                <div className="p-2 bg-gray-300 rounded-full">
+                  <img src={Edited} alt="" className="w-[20px] h-[20px]" />
+                </div>
+                <div className="text-[18px] font-bold">Change Password</div>
+              </div>
+              <div className="flex gap-3 items-center cursor-pointer">
+                <div className="p-2 bg-gray-300 rounded-full">
+                  <img src={Logout} alt="" className="w-[20px] h-[20px]" />
+                </div>
+                <div className="text-[18px] font-bold">Logout</div>
+              </div>
+            </div>
           </section>
         </div>
       </main>
