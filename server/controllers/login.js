@@ -1,5 +1,7 @@
 const User = require("../model/userSchema");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv").config();
 
 const Login = async (req, res) => {
     const {email, password} = req.body;
@@ -10,7 +12,27 @@ const Login = async (req, res) => {
         if(!findUser) return res.status(404).json({message: `No account found with this ${email}`})
         const match = await bcrypt.compare(password, findUser.password);  
         if(match){
-            res.json(findUser);
+
+            // Generate access token
+            const accessToken = await jwt.sign(
+              { username: findUser.username },
+              process.env.ACCESS_TOKEN,
+              {expiresIn: '30s'}
+            );
+
+            // Generate refresh token
+             const refreshToken = await jwt.sign(
+              { username: findUser.username },
+              process.env.REFRESH_TOKEN,
+              {expiresIn: '1d'}
+            );
+
+            // Save refresh token to database
+            findUser.refreshToken = refreshToken;
+            const saveRefreshToken = await findUser.save();
+            console.log(saveRefreshToken);
+
+            res.json(accessToken);
         }else{
             res.status(401).json({message: "Not authorized"});
         }

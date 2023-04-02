@@ -39,6 +39,9 @@ const Blogs = new Schema({
       ref: "Comment",
     },
   ],
+  refreshToken: {
+    type: String,
+  }
 });
 
 module.exports = mongoose.model("blog", Blogs);
