@@ -18,6 +18,9 @@ function Login() {
     e.preventDefault();
 
     const handleLogin = async () =>{
+
+      if(email === "" || password === "") return setError(true)
+
       try{
         const bodyData = new FormData();
         bodyData.append("email", email);
@@ -42,7 +45,6 @@ function Login() {
           toast.error("Unauthorized")
         }else if (err.status === 404) {
           toast.error("Incorrect username or password")
-          setError(true);
         }else{
           toast.error("login failed");
         }
@@ -63,36 +65,48 @@ function Login() {
           <h1 className="text-center">Welcome!</h1>
           <p className="text-center"> Enter details to login.</p>
           <form onSubmit={handleSubmit}>
-            {error && <p className="error"> Incorrect username or password</p>}
+            {/* {error && <p className="error"> Incorrect username or password</p>} */}
             <input
               type="text"
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className={`w-[100%] p-4 ${
-                error && "outline outline-bg-red-600"
+              className={`w-[100%] p-4 border border-1 ${
+                error && !email ? "border-red-500 " : "border-[#e5e5e5]"
               }`}
             />
+            {error && !email ? (
+              <small className="text-red-500">Email is required</small>
+            ) : (
+              <small></small>
+            )}
             <input
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className={`w-[100%] p-4 ${
-                error && "outline outline-bg-red-700"
+              className={`w-[100%] p-4 border border-1 ${
+                error && !password ? "border-red-500 " : "border-[#e5e5e5]"
               }`}
             />
+            {error && !password ? (
+              <small className="text-red-500">Password is required</small>
+            ) : (
+              <small></small>
+            )}
             <button type="submit">Login</button>
-            <div className="flex justify-between mt-4 w-[80%]">
-              {" "}
-              <p
-                onClick={() =>
-                  alert("chill dude, i am not done with the application")
-                }
-              >
-                Forgot password?
-              </p>
-              <p onClick={() => Navigate("/register")}>Sign up</p>
+            <div className="flex justify-center items-center">
+              <div className="flex justify-between mt-4 w-[80%]">
+                {" "}
+                <p
+                  onClick={() =>
+                    alert("chill dude, i am not done with the application")
+                  }
+                >
+                  Forgot password?
+                </p>
+                <p onClick={() => Navigate("/register")}>Sign up</p>
+              </div>
             </div>
           </form>
         </div>
