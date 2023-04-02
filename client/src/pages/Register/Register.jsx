@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/Login.scss";
 import sign from "../../assets/login.jpg";
 import Navbar from "../../components/Navbar";
+import axios from "axios";
 
 function Register() {
   const Navigate = useNavigate();
@@ -10,29 +11,27 @@ function Register() {
   const [username, setUsername] = useState("");
   const [fName, setFName] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
 
   
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const Data = {
-      email,
-      password,
-    };
-    localStorage.setItem("form", JSON.stringify(Data));
-    if (email === "admin" && password === "admin") {
-      Navigate("/dashboard");
-    }
-  };
 
-  useEffect(() => {
-    let storedData = localStorage.getItem("form");
-    if (!storedData) return;
-    let result = JSON.parse(storedData);
-    setEmail(result.email);
-    setPassword(result.password);
-  }, []);
+    try{
+      const regData = new FormData();
+      regData.append("email", email);
+      regData.append("username", username);
+      regData.append("fullName", fName);
+      regData.append("password", password);
+
+      const Response = await axios.post("http://localhost:5001/api/register", regData);
+      console.log(Response.data)
+
+    }catch(err){
+      console.error(err.message);
+    }
+   
+  };
 
   return (
     <div className="login mt-3 ">
