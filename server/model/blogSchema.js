@@ -38,10 +38,7 @@ const Blogs = new Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Comment",
     },
-  ],
-  refreshToken: {
-    type: String,
-  }
+  ]
 });
 
 module.exports = mongoose.model("blog", Blogs);

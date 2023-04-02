@@ -1,7 +1,7 @@
 const User = require("../model/userSchema");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 
 const Login = async (req, res) => {
     const {email, password} = req.body;
@@ -17,7 +17,7 @@ const Login = async (req, res) => {
             const accessToken = await jwt.sign(
               { username: findUser.username },
               process.env.ACCESS_TOKEN,
-              {expiresIn: '30s'}
+              {expiresIn: '300s'}
             );
 
             // Generate refresh token
@@ -30,9 +30,10 @@ const Login = async (req, res) => {
             // Save refresh token to database
             findUser.refreshToken = refreshToken;
             const saveRefreshToken = await findUser.save();
-            console.log(saveRefreshToken);
-
-            res.json(accessToken);
+            if(!saveRefreshToken) return res.sendStatus(500)
+            
+            res.cookie("jwt", refreshToken, {httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
+            res.json({ accessToken });
         }else{
             res.status(401).json({message: "Not authorized"});
         }

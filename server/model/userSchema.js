@@ -51,6 +51,9 @@ const userProfileSchema = new mongoose.Schema(
         ref: "Post",
       },
     ],
+    refreshToken: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
