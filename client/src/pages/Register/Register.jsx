@@ -24,7 +24,10 @@ function Register() {
       regData.append("fullName", fName);
       regData.append("password", password);
 
-      const Response = await axios.post("http://localhost:5001/api/register", regData);
+      const Response = await axios.post(
+        "https://blog-app-v8b8.onrender.com/api/register",
+        regData
+      );
       console.log(Response.data)
 
     }catch(err){

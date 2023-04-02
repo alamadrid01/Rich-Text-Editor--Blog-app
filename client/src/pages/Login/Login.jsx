@@ -23,7 +23,10 @@ function Login() {
         bodyData.append("email", email);
         bodyData.append("password", password);
 
-        const Response = await axios.post("http://localhost:5001/api/login", bodyData);
+        const Response = await axios.post(
+          "https://blog-app-v8b8.onrender.com/api/login",
+          bodyData
+        );
         toast.success(Response.data);
         console.log(Response.data);
         setError(false);
