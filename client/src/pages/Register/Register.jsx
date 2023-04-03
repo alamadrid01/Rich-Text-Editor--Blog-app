@@ -4,6 +4,8 @@ import "../../styles/Login.scss";
 import sign from "../../assets/login.jpg";
 import Navbar from "../../components/Navbar";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Register() {
   const Navigate = useNavigate();
@@ -11,7 +13,8 @@ function Register() {
   const [username, setUsername] = useState("");
   const [fName, setFName] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
+  const [resError, setResonseError] = useState("")
 
   
 
@@ -34,13 +37,19 @@ function Register() {
       console.log(Response.data)
 
     }catch(err){
-      console.error(err.message);
+      if(err.response.status === 409){
+        setResonseError(err.response.data.message);
+      }else{
+        toast.error("Registration failed")
+      }
+      
     }
    
   };
 
   return (
     <div className="login mt-3 ">
+      <ToastContainer />
       <Navbar />
       <main>
         <div className="left">
@@ -50,6 +59,7 @@ function Register() {
           <h1 className="text-center">Welcome!</h1>
           <p className="text-center"> Provide your details for registration.</p>
           <form onSubmit={handleSubmit}>
+            <p className="error text-center">{resError}</p>
             <input
               type="text"
               placeholder="Full Name"
