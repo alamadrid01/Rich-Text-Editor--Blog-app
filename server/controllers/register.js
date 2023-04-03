@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 const Register = async (req, res) =>{
     const {fullName, username, email, password} = req.body;
-    if(!fullName || !username || !email || !password) return res.status(400).json({message: "incomplete or no parameters"});
+    if(!fullName || !username || !email || !password) return res.status(400).json({message: "Incomplete or no parameters"});
     const duplicateEmail = await User.findOne({email: email}).exec();
     const duplicateUsername = await User.findOne({ username: username }).exec();
 
