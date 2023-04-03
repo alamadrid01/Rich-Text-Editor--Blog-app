@@ -7,17 +7,24 @@ import Edited from "../../assets/edit.svg"
 import Logout from "../../assets/logout.svg"
 import BioModal from "../../components/Modal/bioModal";
 import { useState } from "react";
+import PasswordModal from "../../components/Modal/passwordModal";
 
 const Profile = () => {
     const Navigate = useNavigate();
     const [showBio, setShowBio] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleModalClose = () => {
       setShowBio(false);
     };
+
+     const handleModalClos = () => {
+       setShowPassword(false);
+     };
   return (
     <>
       {showBio && <BioModal onClose={handleModalClose} />}
+      {showPassword && <PasswordModal onClose={handleModalClos} />}
       <section className="px-0 lg-px-5 xl:max-w-6xl xl:mx-auto pb-20">
         <Navbar />
         <main>
@@ -103,13 +110,16 @@ const Profile = () => {
             <section className="bg-white rounded-md mt-5 py-5 px-2">
               <h2 className=" text-2xl text-[#262630]">Account Settings</h2>
               <div className="flex flex-col gap-3 px-5 mt-10">
-                <div className="flex gap-3 items-center cursor-pointer">
+                <div
+                  className="flex gap-3 items-center cursor-pointer"
+                  onClick={() => setShowPassword(true)}
+                >
                   <div className="p-2 bg-gray-300 rounded-full">
                     <img src={Edited} alt="" className="w-[20px] h-[20px]" />
                   </div>
                   <div className="text-[18px] font-bold">Change Password</div>
                 </div>
-                <div className="flex gap-3 items-center cursor-pointer">
+                <div className="flex gap-3 items-center cursor-pointer ">
                   <div className="p-2 bg-gray-300 rounded-full">
                     <img src={Logout} alt="" className="w-[20px] h-[20px]" />
                   </div>
