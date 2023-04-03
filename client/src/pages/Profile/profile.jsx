@@ -40,24 +40,32 @@ const Profile = () => {
           <div className="about flex flex-col gap-3 mt-5">
             <section className="bg-white rounded-md mt-5 py-5 px-2">
               <h2 className=" text-2xl text-[#262630]">My Account</h2>
-              <div className="flex gap-5 mt-10 px-4">
-                <div className="p-4 bg-gray-300 rounded-full">
-                  <img src={profile} alt="" />
-                </div>
-                <div className="flex flex-col gap-3">
-                  <div className="text-[20px] font-bold">Adebayo</div>
-                  <div className="text-[15px]">Full Name</div>
-                </div>
-              </div>
-              <div className="flex gap-5 mt-6 px-4">
-                <div className="p-4 bg-gray-300 rounded-full">
-                  <img src={Message} alt="" />
-                </div>
-                <div className="flex flex-col gap-3">
-                  <div className="text-[20px] font-bold">
-                    adebayoalameen@gmail.com
+              <div className="flex justify-between items-center">
+                <div>
+                  <div className="flex gap-5 mt-10 px-4">
+                    <div className="p-4 bg-gray-300 rounded-full">
+                      <img src={profile} alt="" />
+                    </div>
+                    <div className="flex flex-col gap-3">
+                      <div className="text-[20px] font-bold">Adebayo</div>
+                      <div className="text-[15px]">Full Name</div>
+                    </div>
                   </div>
-                  <div className="text-[15px]">Email Address</div>
+                  <div className="flex gap-5 mt-6 px-4">
+                    <div className="p-4 bg-gray-300 rounded-full">
+                      <img src={Message} alt="" />
+                    </div>
+                    <div className="flex flex-col gap-3">
+                      <div className="text-[20px] font-bold">
+                        adebayoalameen@gmail.com
+                      </div>
+                      <div className="text-[15px]">Email Address</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-col w-[60%] justify-center items-center">
+                  <img src={profile} alt="" className="w-[160px] h-[160px] rounded-full object-cover"/>
+                  <p className="text-center cursor-pointer">Edit image</p>
                 </div>
               </div>
               <div className="flex gap-5 mt-8 px-[40px] relative">
