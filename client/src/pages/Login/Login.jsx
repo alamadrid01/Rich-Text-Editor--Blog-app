@@ -49,7 +49,9 @@ function Login() {
         setIsLoading(false);
        if (err.response.status === 404) {
          setResonseError(err.response.data.message);
-       } else {
+       } else if(err.response.status === 401){
+          setResonseError("Wrong username or password")
+       }else {
          toast.error("Registration failed");
        }
       }

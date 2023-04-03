@@ -53,7 +53,7 @@ function Register() {
       if(err.response.status === 409){
         setResonseError(err.response.data.message);
       }else{
-        toast.error("Registration failed")
+        toast.error("Login failed")
       }
       
     }

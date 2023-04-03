@@ -84,7 +84,6 @@ const Profile = () => {
               <div className="flex justify-between items-center px-5 mt-10">
                 <div className="flex gap-3 items-center">
                   <img
-                    class
                     src={profile}
                     alt=""
                     className="w-[32px] h-[32px] rounded-full object-cover"
