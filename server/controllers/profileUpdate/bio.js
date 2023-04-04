@@ -17,9 +17,8 @@ const Bio = async (req, res) => {
     if(!user) return res.sendStatus(404);
 
     user.bio = text;
-    user.save();
+    await user.save();
     res.sendStatus(204);
-
 }
 
 module.exports =  Bio

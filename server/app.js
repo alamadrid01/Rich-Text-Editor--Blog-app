@@ -7,6 +7,7 @@ const blogRouter = require("./routes/blog");
 const loginRoute = require("./routes/login");
 const registerRoute = require("./routes/register");
 const bioRoute = require("./routes/bio");
+const changePasswordRoute = require("./routes/changePassword");
 
 
 
@@ -24,6 +25,7 @@ app.use("/api", blogRouter)
 app.use("/api", loginRoute)
 app.use("/api", bioRoute);
 app.use("/api", registerRoute)
+app.use("/api", changePasswordRoute);
 app.get('/', (req, res) =>{
     res.json({message: 'welcome to wrong parameters'})
 })
