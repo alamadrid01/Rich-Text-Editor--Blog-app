@@ -20,7 +20,7 @@ const BioModal = ({ onClose }) => {
         onClick={handleClickOutside}
       >
         <div
-          className=" flex flex-col bg-white  rounded-md px-8 py-4 w-3/5 sm:w-4/5 lg:w-1/2"
+          className=" flex flex-col bg-white  rounded-md px-8 py-4 w-3/5 sm:w-3/5 lg:w-1/2"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="text-[20px] font-bold text-green-800 text-center">
