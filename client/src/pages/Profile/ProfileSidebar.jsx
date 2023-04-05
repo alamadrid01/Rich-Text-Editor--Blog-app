@@ -7,16 +7,20 @@ import { useEffect, useState } from "react";
 
 
 const ProfileSidebar = ({value}) => {
-    const [color, setColor] = useState(false)
+    const [color, setColor] = useState(false);
+    const [secColor, setSecColor] = useState(false);
     const Navigate = useNavigate();
     const locate = useLocation();
 
     const {pathname} = locate;
-    console.log(pathname);
 
     useEffect(() => {
         if (pathname === "/profile/settings") {
           setColor(true);
+          setSecColor(false)
+        }else if (pathname === "/profile/history") {
+            setSecColor(true);
+            setColor(false);
         }
     }, [pathname])
 
@@ -33,7 +37,9 @@ const ProfileSidebar = ({value}) => {
         >
           <img src={profile} alt="" className="w-[32px] h-[32px]" />
           <h3
-            className={`font-bold text-[14px] ${color ? "text-gray-500" : "text-blue-500"}`}
+            className={`font-bold text-[14px] ${
+             !secColor && color  ? "text-gray-500" : "text-blue-500"
+            }`}
           >
             PROFILE
           </h3>
@@ -41,9 +47,16 @@ const ProfileSidebar = ({value}) => {
         <div
           className="mt-4 px-3 flex items-center gap-3 cursor-pointer"
           role="button"
+          onClick={() => Navigate("/profile/history")}
         >
           <img src={Message} alt="" className="w-[32px] h-[32px]" />
-          <h3 className="font-bold text-[14px] text-gray-500">HISTORY</h3>
+          <h3
+            className={`font-bold text-[14px] ${
+              secColor ? "text-blue-500" : "text-gray-500"
+            }`}
+          >
+            MANAGE BLOGS
+          </h3>
         </div>
         <div
           className="mt-4 px-3 flex items-center gap-3 cursor-pointer"
@@ -52,7 +65,9 @@ const ProfileSidebar = ({value}) => {
         >
           <img src={Edit} alt="" className="w-[32px] h-[32px]" />
           <h3
-            className={`font-bold text-[14px] ${color ? "text-blue-500" : "text-gray-500"}`}
+            className={`font-bold text-[14px] ${
+              color ? "text-blue-500" : "text-gray-500"
+            }`}
           >
             ACCOUNT
           </h3>

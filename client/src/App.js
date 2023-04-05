@@ -10,6 +10,7 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Profile from "./pages/Profile/profile";
 import AccountSetting from "./pages/Profile/AccountSetting";
+import BlogHistory from "./pages/Profile/BlogHistory";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/settings" element={<AccountSetting />} />
+          <Route path="/profile/history" element={<BlogHistory />} />
           <Route path="/register" element={<Register />} />
           <Route path="/allblogs" element={<Allblogs />} />
           <Route path="/create-blog" element={<CreateBlog />} />
