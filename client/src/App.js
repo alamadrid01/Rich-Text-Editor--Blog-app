@@ -9,6 +9,7 @@ import Viewer from "./components/Viewer";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Profile from "./pages/Profile/profile";
+import AccountSetting from "./pages/Profile/AccountSetting";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Viewer />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/settings" element={<AccountSetting />} />
           <Route path="/register" element={<Register />} />
           <Route path="/allblogs" element={<Allblogs />} />
           <Route path="/create-blog" element={<CreateBlog />} />

@@ -64,11 +64,11 @@ const PasswordModal = ({ onClose }) => {
               onChange={(e) => setPassword(e.target.value)}
               className="focus focus:outline-green-200 px-3 py-4 rounded-lg border border-1"
             />
-            {
-              error ? <p className="text-[12px] text-red-600 mb-[-10px]">
+            {error ? (
+              <p className="text-[12px] text-red-600 mb-[-10px]">
                 password does not match
-              </p> : null
-            }
+              </p>
+            ) : null}
             <input
               type="password"
               placeholder="Confirm Password"
@@ -80,7 +80,7 @@ const PasswordModal = ({ onClose }) => {
             />
             <button
               type="submit"
-              className="bg-green-400 text-white px-3 md:px-6 px-6 py-3 rounded-md hover:opacity-75 transition-all duration-300"
+              className="bg-[#2ab2b1] text-white px-3 md:px-6 px-6 py-3 rounded-md hover:opacity-75 transition-all duration-300"
             >
               Save
             </button>
