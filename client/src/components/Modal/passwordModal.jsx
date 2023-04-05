@@ -4,9 +4,26 @@ const PasswordModal = ({ onClose }) => {
   const [password, setPassword] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState(false)
 
   const submitHandler = (e) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setError(true);
+    }else{
+      setError(false)
+    }
+
+    try{
+      const pwdData = new FormData();
+      pwdData.append("oldPassword", oldPassword);
+      pwdData.append("newPassword", password);
+
+
+    }catch(err){
+      console.log(err)
+    }
   };
 
   const handleClickOutside = (e) => {
@@ -33,7 +50,7 @@ const PasswordModal = ({ onClose }) => {
               type="password"
               placeholder="Old Password"
               name=""
-              id=""
+              id="old-password"
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
               className="focus focus:outline-green-200 px-3 py-4 rounded-lg border border-1"
@@ -42,15 +59,20 @@ const PasswordModal = ({ onClose }) => {
               type="password"
               placeholder="New Password"
               name=""
-              id=""
+              id="new-passsword"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="focus focus:outline-green-200 px-3 py-4 rounded-lg border border-1"
             />
+            {
+              error ? <p className="text-[12px] text-red-600 mb-[-10px]">
+                password does not match
+              </p> : null
+            }
             <input
               type="password"
               placeholder="Confirm Password"
-              name=""
+              name="confirm-password"
               id=""
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
