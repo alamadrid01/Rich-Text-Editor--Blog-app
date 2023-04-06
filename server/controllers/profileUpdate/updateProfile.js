@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 const UpdateProfile = async (req, res) => {
     const id = req.params.id;
     const {fName, username, location, bio, available, twitter, instagram, github, stack, facebook, website, link, email} = req.body;
-    const {image} = req.file;
-    console.log(image);
+    // const {image} = req.file;
+    // console.log(image);
 
     if(!id) return res.status(401).json({message: "Id is required"})
 
@@ -35,7 +35,7 @@ const UpdateProfile = async (req, res) => {
     const result =  await User.findByIdAndUpdate({_id: id}, {$set: updataedField}, {new: true}).exec();
     if (!result) return res.sendStatus(404);
 
-    res.sendStatus(204);
+    res.status(200).json({result: result});
 }
 
 module.exports =  UpdateProfile

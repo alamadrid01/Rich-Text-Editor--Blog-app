@@ -43,6 +43,9 @@ const Login = async (req, res) => {
                follwoers: findUser.followers,
                following: findUser.following,
                posts: findUser.posts,
+               social: findUser.socialLinks,
+               available: findUser.available,
+               location: findUser.location,
                accessToken,
              });
         }else{
