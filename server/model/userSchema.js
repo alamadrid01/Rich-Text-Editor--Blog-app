@@ -43,43 +43,31 @@ const userProfileSchema = new mongoose.Schema(
           type: String,
           default: "",
         },
-      },
-      {
         twitter: {
           type: String,
           default: "",
         },
-      },
-      {
         instagram: {
           type: String,
           default: "",
         },
-      },
-      {
         stack: {
           type: String,
           default: "",
         },
-      },
-      {
         github: {
           type: String,
           default: "",
         },
-      },
-      {
         link: {
           type: String,
           default: "",
         },
-      },
-      {
         website: {
           type: String,
           default: "",
         },
-      },
+      }
     ],
     following: [
       {
