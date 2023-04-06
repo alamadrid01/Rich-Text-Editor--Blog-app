@@ -6,12 +6,18 @@ const ProfileUpdate = () => {
   const [image, setImage] = useState(profile);
   const [fullName, setFullName] = useState("")
   const [username, setUsername] = useState("")
+  const [bio, setBio] = useState("");
+  const [availabe, setAvailable] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("aloy-user"));
     console.log(data);
     setFullName(data.name);
     setUsername(data.username);
+    setImage(data.avatar);
+    setBio(data.bio)
+    setEmail(data.email)
   }, [])
 
    const handleImageChange = (e) => {
@@ -55,9 +61,9 @@ const ProfileUpdate = () => {
                   type="text"
                   name="username"
                   id="username"
-                  value={username}
+                  value={"@" + username}
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
-                  onChange={(e) => setUsername(e.target.value)}  
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-3 mt-5">
@@ -99,6 +105,7 @@ const ProfileUpdate = () => {
                   type="text"
                   name="location"
                   id="location"
+                  placeholder="Abuja, Nigeria"
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
                 />
               </div>
@@ -115,8 +122,8 @@ const ProfileUpdate = () => {
                   id="bio"
                   cols="25"
                   rows="7"
-                  // value={bio}
-                  // onChange={(e) => setBio(e.target.value)}
+                  value={bio}
+                  onChange={(e) => setBio(e.target.value)}
                   placeholder="I am programmer from planet ..."
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc] "
                 ></textarea>
@@ -133,8 +140,8 @@ const ProfileUpdate = () => {
                   id="available"
                   cols="25"
                   rows="7"
-                  // value={bio}
-                  // onChange={(e) => setBio(e.target.value)}
+                  value={availabe}
+                  onChange={(e) => setAvailable(e.target.value)}
                   placeholder="I am availabe for mentoring ..."
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc] "
                 ></textarea>
@@ -153,6 +160,7 @@ const ProfileUpdate = () => {
                   type="text"
                   name="twitter"
                   id="twitter"
+                  placeholder="https://twitter.com/AdebayoAlameen"
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
                 />
               </div>
@@ -167,6 +175,7 @@ const ProfileUpdate = () => {
                   type="text"
                   name="instagram"
                   id="instagram"
+                  placeholder="https://www.instagram.com/alamadrid_d"
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
                 />
               </div>
@@ -181,6 +190,7 @@ const ProfileUpdate = () => {
                   type="text"
                   name="github"
                   id="github"
+                  placeholder="https://www.github.com/alamadrid"
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
                 />
               </div>
@@ -195,6 +205,7 @@ const ProfileUpdate = () => {
                   type="text"
                   name="stack"
                   id="stack"
+                  placeholder="https://www.stackoverflow.com/example"
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
                 />
               </div>
@@ -209,6 +220,7 @@ const ProfileUpdate = () => {
                   type="text"
                   name="facebook"
                   id="facebook"
+                  placeholder="https://www.facebook.com/example"
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
                 />
               </div>
@@ -223,6 +235,7 @@ const ProfileUpdate = () => {
                   type="text"
                   name="website"
                   id="website"
+                  placeholder="https://www.me.com"
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
                 />
               </div>
@@ -237,6 +250,7 @@ const ProfileUpdate = () => {
                   type="text"
                   name="linked"
                   id="linked"
+                  placeholder="https://www.linkedIn.com/example"
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
                 />
               </div>
@@ -256,6 +270,8 @@ const ProfileUpdate = () => {
                   type="email"
                   name="email"
                   id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
                 />
               </div>
