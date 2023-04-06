@@ -6,7 +6,7 @@ require('dotenv').config();
 const blogRouter = require("./routes/blog");
 const loginRoute = require("./routes/login");
 const registerRoute = require("./routes/register");
-const bioRoute = require("./routes/bio");
+const updateRoute = require("./routes/updateProfile");
 const changePasswordRoute = require("./routes/changePassword");
 
 
@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api", blogRouter)
 app.use("/api", loginRoute)
-app.use("/api", bioRoute);
+app.use("/api", updateRoute);
 app.use("/api", registerRoute)
 app.use("/api", changePasswordRoute);
 app.get('/', (req, res) =>{

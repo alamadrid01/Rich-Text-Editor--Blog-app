@@ -33,6 +33,10 @@ const userProfileSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    location: {
+      type: String,
+      default: "",
+    },
     socialLinks: [
       {
         facebook: {
