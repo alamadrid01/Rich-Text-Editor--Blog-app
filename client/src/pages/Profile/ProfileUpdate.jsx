@@ -26,6 +26,11 @@ const ProfileUpdate = () => {
        console.log(URL.createObjectURL(e.target.files[0]));
      }
    };
+
+   const handleUpdate = () => {
+      
+   }
+
   return (
     <div>
       <main className=" flex flex-col md:flex-row gap-4">
@@ -279,7 +284,7 @@ const ProfileUpdate = () => {
           </div>
           <button
             className="mt-6 bg-black text-white px-3 md:px-6 px-6 py-3 rounded-lg hover:opacity-75 transition-all duration-300"
-            onClick={() => alert("calm!, still working on it")}
+            onClick={handleUpdate}
           >
             Update
           </button>
