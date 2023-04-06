@@ -3,9 +3,10 @@ const mongoose = require("mongoose");
 
 const Bio = async (req, res) => {
     const id = req.params.id;
-    const {text} = req.body
+    const {fName, username, location, bio, available, twitter, instagram, github, stack, facebook, website, link, email} = req.body;
+    const {image} = req.file;
 
-    if(!id || !text) return res.status(400).json({message: "Id and bio text required"})
+    if(!id) return res.status(401).json({message: "Id is required"})
 
         // Check if it is a valid Id
     if (!mongoose.Types.ObjectId.isValid(id)) {

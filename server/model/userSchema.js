@@ -29,10 +29,54 @@ const userProfileSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    website: {
+    available: {
       type: String,
       default: "",
     },
+    socialLinks: [
+      {
+        facebook: {
+          type: String,
+          default: "",
+        },
+      },
+      {
+        twitter: {
+          type: String,
+          default: "",
+        },
+      },
+      {
+        instagram: {
+          type: String,
+          default: "",
+        },
+      },
+      {
+        stack: {
+          type: String,
+          default: "",
+        },
+      },
+      {
+        github: {
+          type: String,
+          default: "",
+        },
+      },
+      {
+        link: {
+          type: String,
+          default: "",
+        },
+      },
+      {
+        website: {
+          type: String,
+          default: "",
+        },
+      },
+    ],
     following: [
       {
         type: mongoose.Schema.Types.ObjectId,

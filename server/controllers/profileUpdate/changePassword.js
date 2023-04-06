@@ -8,9 +8,11 @@ const ChangePassword = async (req, res) => {
 
     if(!id || !oldPassword || !newPassword) return res.status(400).json({message: "Id or password is required"});
 
+    // Trim white spaces from the passwords
     const trimOldPassword = oldPassword.trim();
     const trimNewPassword = newPassword.trim();
 
+    // Check if the id is valid
     if(!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({message: "Invalid Id"})
 
     const user = await User.findOne({_id: id}).exec();
@@ -19,6 +21,7 @@ const ChangePassword = async (req, res) => {
     const checkPassword = await bcrypt.compare(trimOldPassword, user.password);
     if(!checkPassword) return res.status(401).json({message: "Password do not match"});
 
+    // Check if the old password is same as new password
      const checkDuplicatePassword = await bcrypt.compare(
        trimNewPassword,
        user.password
@@ -32,6 +35,7 @@ const ChangePassword = async (req, res) => {
      }
 
     try {
+        // hash the password before saving
         const hashPassword = await bcrypt.hash(trimNewPassword, 10);
 
         user.password = hashPassword;
