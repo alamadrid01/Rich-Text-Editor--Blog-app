@@ -1,15 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ProfileSidebar from "./ProfileSidebar";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import profile from "../../assets/profile.svg";
+import DeletePost from '../../components/Modal/deletePost';
 
 
 
 const BlogHistory = () => {
     const Navigate = useNavigate();
+    const [displayModal, setDisplayModal] = useState(false);
+    console.log(displayModal);
+
+    const handleClose = () => {
+      setDisplayModal(false)
+    }
+
+
+
   return (
     <>
+      {displayModal && <DeletePost onClose={handleClose} />}
       <section className="px-0 lg-px-5 xl:max-w-10xl xl:mx-auto pb-20">
         <Navbar />
         <main>
@@ -41,14 +52,14 @@ const BlogHistory = () => {
                     </div>
                     <div className="flex gap-5">
                       <button
-                        className="bg-white border border-1 border-green-300 text-green-300 px-3 py-2 rounded-md hover:opacity-75 transition-all duration-300"
+                        className="bg-white border border-1 border-green-500 text-green-500 px-3 py-2 rounded-md  hover:bg-green-400 hover:border-none hover:text-white transition-all duration-300"
                         onClick={() => Navigate("/create-blog")}
                       >
                         Edit post
                       </button>
                       <button
-                        className="bg-white border border-1 border-red-300 text-red-300 px-3 py-2 rounded-md hover:opacity-75 transition-all duration-300"
-                        onClick={() => Navigate("/create-blog")}
+                        className="bg-white border border-1 border-red-500 text-red-500 px-3 py-2 rounded-md  hover:bg-red-400 hover:border-none hover:text-white transition-all duration-300"
+                        onClick={() => setDisplayModal(true)}
                       >
                         Delete post
                       </button>

@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 const ProfileSidebar = ({value}) => {
     const [color, setColor] = useState(false);
     const [secColor, setSecColor] = useState(false);
+    const [thirdColor, setThirdColor] = useState(false);
     const Navigate = useNavigate();
     const locate = useLocation();
 
@@ -18,9 +19,13 @@ const ProfileSidebar = ({value}) => {
         if (pathname === "/profile/settings") {
           setColor(true);
           setSecColor(false)
+          setThirdColor(false)
         }else if (pathname === "/profile/history") {
             setSecColor(true);
             setColor(false);
+            setThirdColor(false)
+        }else{
+            setThirdColor(true)
         }
     }, [pathname])
 
@@ -38,7 +43,7 @@ const ProfileSidebar = ({value}) => {
           <img src={profile} alt="" className="w-[32px] h-[32px]" />
           <h3
             className={`font-bold text-[14px] ${
-             !secColor && color  ? "text-gray-500" : "text-blue-500"
+             thirdColor  ? "text-blue-500" : "text-gray-500"
             }`}
           >
             PROFILE
