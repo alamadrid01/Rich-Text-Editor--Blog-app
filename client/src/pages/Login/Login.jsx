@@ -38,6 +38,8 @@ function Login() {
           bodyData
         );
         console.log(Response.data);
+        
+        localStorage.setItem("aloy-user", JSON.stringify(Response.data));
         setError(false);
         setIsLoading(false);
         toast.success("Login successful")
