@@ -9,6 +9,20 @@ const ProfileUpdate = () => {
   const [bio, setBio] = useState("");
   const [availabe, setAvailable] = useState("");
   const [email, setEmail] = useState("");
+  const [facebook, setFacebook] = useState("")
+  const [twitter, setTwitter] = useState("");
+  const [link, setLinked] = useState("");
+  const [instagram, setInstagram] = useState("");
+  const [stack, setStack] = useState("");
+  const [git, setGit] = useState("")
+  const [website, setWebsite] = useState("");
+  const [location, setLocation] = useState("");
+  const [avatar, setAvatar] = useState("");
+
+
+
+
+
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("aloy-user"));
@@ -21,6 +35,7 @@ const ProfileUpdate = () => {
   }, [])
 
    const handleImageChange = (e) => {
+      setAvatar(e.target.files[0]);
      if (e.target.files && e.target.files[0]) {
        setImage(URL.createObjectURL(e.target.files[0]));
        console.log(URL.createObjectURL(e.target.files[0]));
@@ -111,7 +126,9 @@ const ProfileUpdate = () => {
                   name="location"
                   id="location"
                   placeholder="Abuja, Nigeria"
+                  value={location}
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
+                  onChange={(e) => setLocation(e.target.value)}
                 />
               </div>
               <h2 className="text-[18px] mt-10 font-bold">About You</h2>
@@ -166,7 +183,9 @@ const ProfileUpdate = () => {
                   name="twitter"
                   id="twitter"
                   placeholder="https://twitter.com/AdebayoAlameen"
+                  value={twitter}
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
+                  onChange={(e) => setTwitter(e.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-3 mt-5">
@@ -181,7 +200,9 @@ const ProfileUpdate = () => {
                   name="instagram"
                   id="instagram"
                   placeholder="https://www.instagram.com/alamadrid_d"
+                  value={instagram}
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
+                  onChange={(e) => setInstagram(e.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-3 mt-5">
@@ -196,7 +217,9 @@ const ProfileUpdate = () => {
                   name="github"
                   id="github"
                   placeholder="https://www.github.com/alamadrid"
+                  value={git}
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
+                  onChange={(e) => setGit(e.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-3 mt-5">
@@ -210,8 +233,10 @@ const ProfileUpdate = () => {
                   type="text"
                   name="stack"
                   id="stack"
+                  value={stack}
                   placeholder="https://www.stackoverflow.com/example"
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
+                  onChange={(e) => setStack(e.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-3 mt-5">
@@ -226,7 +251,9 @@ const ProfileUpdate = () => {
                   name="facebook"
                   id="facebook"
                   placeholder="https://www.facebook.com/example"
+                  value={facebook}
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
+                  onChange={(e) => setFacebook(e.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-3 mt-5">
@@ -241,7 +268,9 @@ const ProfileUpdate = () => {
                   name="website"
                   id="website"
                   placeholder="https://www.me.com"
+                  value={website}
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
+                  onChange={(e) => setWebsite(e.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-3 mt-5">
@@ -256,7 +285,9 @@ const ProfileUpdate = () => {
                   name="linked"
                   id="linked"
                   placeholder="https://www.linkedIn.com/example"
+                  value={link}
                   className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
+                  onChange={(e) => e.target.value}
                 />
               </div>
               <div className="flex flex-col gap-3 mt-5">
