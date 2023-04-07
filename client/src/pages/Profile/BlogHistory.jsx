@@ -6,7 +6,6 @@ import profile from "../../assets/profile.svg";
 import DeletePost from '../../components/Modal/deletePost';
 
 
-
 const BlogHistory = () => {
     const Navigate = useNavigate();
     const [displayModal, setDisplayModal] = useState(false);
@@ -15,7 +14,6 @@ const BlogHistory = () => {
     const handleClose = () => {
       setDisplayModal(false)
     }
-
 
 
   return (
