@@ -72,7 +72,10 @@ const ProfileUpdate = () => {
         updateData.append("link", link);
         updateData.append("image", avatar)
 
-        const uploadData = await axios.put(`http://localhost:5001/api/update/${userId}`, updateData);
+        const uploadData = await axios.put(
+          `https://blog-app-v8b8.onrender.com/api/update/${userId}`,
+          updateData
+        );
         setIsLoading(false);
         if(uploadData.status === 204){
           toast.success("Profile updated successfully")
