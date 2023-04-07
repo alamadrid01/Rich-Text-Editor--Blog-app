@@ -5,7 +5,9 @@ import Profile from "../assets/profile.svg"
 function Navbar() {
   const locate = useLocation();
   const Navigate = useNavigate();
-  const [display, setDisplay] = useState(false)
+  const [display, setDisplay] = useState(false);
+  const [image, setImage] = useState("");
+  const [imageDisplay, setImageDisplay] = useState(false);
 
   const { pathname } = locate;
   
@@ -13,6 +15,12 @@ function Navbar() {
  useEffect(() => {
    if (pathname === "/register" || pathname === "/login") {
      setDisplay(true);
+   }
+   const user = JSON.parse(localStorage.getItem("aloy-user"));
+
+   if(user){
+    setImageDisplay(true);
+    setImage(user.avatar);
    }
  }, [pathname])
 
@@ -24,7 +32,9 @@ function Navbar() {
       {display ? null : (
         <li className="text-2xl font-bold">
           <button onClick={() => Navigate("/login")}>
-            <img src={Profile} alt="profile" />{" "}
+            {
+              imageDisplay ? <img src={image} alt="" className="w-[32px] h-[32px] rounded-full " /> : <img src={Profile} alt="profile" />
+            }
           </button>
         </li>
       )}
