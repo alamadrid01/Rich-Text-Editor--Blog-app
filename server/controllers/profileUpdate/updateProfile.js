@@ -14,6 +14,16 @@ const UpdateProfile = async (req, res) => {
     return res.status(401).json({ message: "Invalid ID" });
     }
 
+    const links = {
+      facebook,
+      twitter,
+      instagram,
+      stack,
+      github,
+      link,
+      website,
+    };
+
 const updatedFields = {
   bio: bio,
   fullName: fName,
@@ -22,34 +32,14 @@ const updatedFields = {
   available: available,
   email: email,
   $set: {
-    "socialLinks.$[facebook].facebook": facebook,
-    "socialLinks.$[twitter].twitter": twitter,
-    "socialLinks.$[instagram].instagram": instagram,
-    "socialLinks.$[stack].stack": stack,
-    "socialLinks.$[github].github": github,
-    "socialLinks.$[link].link": link,
-    "socialLinks.$[website].website": website,
+   socialLinks: [links]
   },
 };
 
-const arrayFilters = [
-  { "facebook.facebook": { $exists: true } },
-  { "twitter.twitter": { $exists: true } },
-  { "instagram.instagram": { $exists: true } },
-  { "stack.stack": { $exists: true } },
-  { "github.github": { $exists: true } },
-  { "link.link": { $exists: true } },
-  { "website.website": { $exists: true } },
-];
 
-const result = await User.findByIdAndUpdate({ _id: id }, updatedFields, {
-  new: true,
-  arrayFilters,
-}).exec();
-
+const result = await User.findByIdAndUpdate({_id: id}, updatedFields, {new:true}).exec();
 if (!result) return res.sendStatus(404);
-res.status(200).json({ result: result });
-
+    res.sendStatus(204);
 }
 
 module.exports =  UpdateProfile
