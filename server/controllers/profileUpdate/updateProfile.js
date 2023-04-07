@@ -19,7 +19,7 @@ const UpdateProfile = async (req, res) => {
     email,
   } = req.body;
   const file = req.file;
-  console.log(file);
+  const {path} = file;
 
   if (!id) return res.status(401).json({ message: "Id is required" });
 
@@ -45,6 +45,7 @@ const UpdateProfile = async (req, res) => {
     location: location,
     available: available,
     email: email,
+    avatar: path,
     $set: {
       socialLinks: [links],
     },
