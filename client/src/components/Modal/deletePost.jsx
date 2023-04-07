@@ -1,10 +1,17 @@
+import axios from "axios";
 import React from "react";
 
 const DeletePost = ({ onClose }) => {
 
-  const submitHandler = (e) => {
+  const submitHandler = async ({e, postId}) => {
     e.preventDefault();
-    alert("test");
+    
+    try{
+      const deleteBlog = await axios.delete(`https://blog-app-v8b8.onrender.com/${postId}`)
+      console.log(deleteBlog);
+    }catch(err){
+      console.error(err);
+    }
   };
 
   const handleClickOutside = (e) => {
@@ -32,7 +39,7 @@ const DeletePost = ({ onClose }) => {
           </p>
           <button
             className="mt-6 bg-red-600 text-white px-3 md:px-5 px-6 py-3 rounded-lg hover:opacity-75 transition-all duration-300"
-            onClick={() => submitHandler}
+            onClick={submitHandler}
           >
             Delete blog
           </button>
