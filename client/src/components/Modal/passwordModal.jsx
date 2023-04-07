@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const PasswordModal = ({ onClose }) => {
   const [password, setPassword] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
+  const [userId, setUserId] = useState("")
 
-  const submitHandler = (e) => {
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("aloy-user"));
+    setUserId(data.userId);
+
+  }, [])
+
+  const submitHandler = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -19,6 +27,11 @@ const PasswordModal = ({ onClose }) => {
       const pwdData = new FormData();
       pwdData.append("oldPassword", oldPassword);
       pwdData.append("newPassword", password);
+
+      const changePassword = await axios.patch(
+        `http://localhost:5001/api/change-password/${userId}`, pwdData
+      );
+      console.log(changePassword);
 
 
     }catch(err){
