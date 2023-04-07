@@ -1,4 +1,5 @@
 const blogSchema = require("../model/blogSchema");
+const mongoose = require("mongoose");
 
 const getAllPost = async (req, res) => {
   try {
@@ -48,6 +49,8 @@ const deletePost = async (req, res) => {
     return;
   }
 
+  if(!mongoose.Types.ObjectId.isValid(postId)) return res.status(409).json({message: "Id is not valid"});
+
   try {
     const deleteBlog = await blogSchema.findOneAndDelete({ _id: postId });
     if (!deleteBlog) {
@@ -68,6 +71,8 @@ const updatePost = async (req, res) => {
     res.status(400).json({ message: "Missing or invalid parameters" });
     return;
   }
+
+  if (!mongoose.Types.ObjectId.isValid(postId)) return res.status(409).json({ message: "Id is not valid" });
 
   try {
     const updatedBlog = await blogSchema.findOneAndUpdate(
@@ -92,6 +97,7 @@ const getSinglePost = async (req, res) => {
     res.status(400).json({ message: "No params was passed in" });
     return;
   }
+  if (!mongoose.Types.ObjectId.isValid(postId)) return res.status(409).json({ message: "Id is not valid" });
 
   try {
     const post = await blogSchema.findById(postId);
