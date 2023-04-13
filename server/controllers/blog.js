@@ -1,4 +1,5 @@
 const blogSchema = require("../model/blogSchema");
+const User = require("../model/userSchema");
 const mongoose = require("mongoose");
 
 const getAllPost = async (req, res) => {
@@ -41,6 +42,33 @@ const createPost = async (req, res) => {
   }
 };
 
+const saveId = async(req, res) => {
+  const userId = req.params.postId;
+  const {postId} = req.body;
+
+  if (!postId || !userId) {
+    res.status(400).json({ message: "User ID and Post Id is required" });
+    return;
+  }
+
+  if (!mongoose.Types.ObjectId.isValid(userId))
+    return res.status(409).json({ message: "Id is not valid" });
+
+    try {
+
+      await User.updateOne(
+        { _id: userId },
+        { $addToSet: { posts: postId } }
+      );
+
+      res.sendStatus(204);
+
+    } catch (err) {
+      res.status(500).json(err.message);
+    }
+
+}
+
 const deletePost = async (req, res) => {
   const postId = req.params.postId;
 
@@ -59,7 +87,7 @@ const deletePost = async (req, res) => {
     }
     res.status(204).send();
   } catch (err) {
-    res.status(500).json({ error_message: err.message });
+    res.status(500).json(err.message);
   }
 };
 
@@ -117,4 +145,5 @@ module.exports = {
   updatePost,
   getSinglePost,
   getAllPost,
+  saveId
 };

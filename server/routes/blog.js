@@ -1,5 +1,5 @@
 const express = require("express")
-const { createPost, deletePost, updatePost, getSinglePost, getAllPost } = require("../controllers/blog");
+const { createPost, deletePost, updatePost, getSinglePost, getAllPost, saveId } = require("../controllers/blog");
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
@@ -30,5 +30,6 @@ router.post("/blog",upload.single('image'), createPost);
 router.get("/blog/:postId", getSinglePost);
 router.delete("/blog/:postId", deletePost);
 router.patch("/blog/:postId", upload.none(), updatePost)
+router.put("/blog/:postId", upload.none(), saveId);
 
 module.exports = router;
