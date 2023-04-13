@@ -1,0 +1,24 @@
+{
+  "name": "Aloy Blog",
+  "version": "1.0",
+  "description": "To automatically login into Helium10 if you are a premium user",
+  "manifest_version": 3,
+
+  "host_permissions": [
+    "https://members.helium10.com/*"
+  ],
+
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["content.js"]
+  }],
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "action": {
+    "default_title": "My Extension",
+    "default_popup": "popup.html"
+  }
+}

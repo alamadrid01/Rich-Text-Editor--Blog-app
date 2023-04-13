@@ -12,6 +12,7 @@ import Profile from "./pages/Profile/profile";
 import AccountSetting from "./pages/Profile/AccountSetting";
 import BlogHistory from "./pages/Profile/BlogHistory";
 import EditBlog from "./components/EditPost/EditBlog";
+import Payment from "./components/Payment";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/profile/settings" element={<AccountSetting />} />
           <Route path="/profile/history" element={<BlogHistory />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/payment" element={<Payment />} />
           <Route path="/edit-blog/:id" element={<EditBlog />} />
           <Route path="/allblogs" element={<Allblogs />} />
           <Route path="/create-blog" element={<CreateBlog />} />

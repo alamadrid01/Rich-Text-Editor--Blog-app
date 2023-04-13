@@ -75,6 +75,7 @@ function Register() {
             <p className="error text-center">{resError}</p>
             <input
               type="text"
+              id="full-name"
               placeholder="Full Name"
               value={fName}
               onChange={(e) => setFName(e.target.value)}
@@ -89,6 +90,7 @@ function Register() {
             )}
             <input
               type="text"
+              id="username"
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -103,6 +105,7 @@ function Register() {
             )}
             <input
               type="text"
+              id="email"
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -117,6 +120,7 @@ function Register() {
             )}
             <input
               type="password"
+              id="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

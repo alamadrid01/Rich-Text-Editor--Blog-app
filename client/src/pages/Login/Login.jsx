@@ -75,6 +75,7 @@ function Login() {
           <form onSubmit={handleSubmit}>
             <p className="error text-center">{resError}</p>
             <input
+            id="email"
               type="text"
               placeholder="Email"
               value={email}
@@ -89,6 +90,7 @@ function Login() {
               <small></small>
             )}
             <input
+            id="password"
               type="password"
               placeholder="Password"
               value={password}
