@@ -18,8 +18,13 @@ const UpdateProfile = async (req, res) => {
     link,
     email,
   } = req.body;
-  const file = req.file;
-  const {path} = file;
+
+  let path;
+
+ if(req.file){
+   const file = req.file;
+   path = file.path;
+ }
 
   if (!id) return res.status(401).json({ message: "Id is required" });
 

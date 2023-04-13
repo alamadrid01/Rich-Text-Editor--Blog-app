@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const UpdateProfile = require("../controllers/profileUpdate/updateProfile");
+const UpdateProfile = require("../controllers/profile/updateProfile");
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");

@@ -9,6 +9,7 @@ const registerRoute = require("./routes/register");
 const updateRoute = require("./routes/updateProfile");
 const changePasswordRoute = require("./routes/changePassword");
 const PaymentRoute = require("./routes/payment");
+const ProfileRoute = require("./routes/getProfile");
 
 
 
@@ -23,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use("/api", blogRouter)
+app.use("/api", ProfileRoute);
 app.use("/api", loginRoute)
 app.use("/api", updateRoute);
 app.use("/api", PaymentRoute);
