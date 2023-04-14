@@ -28,7 +28,7 @@ const storage = new CloudinaryStorage({
 router.get("/blog", getAllPost);
 router.post("/blog",upload.single('image'), createPost);
 router.get("/blog/:postId", getSinglePost);
-router.delete("/blog/:postId", deletePost);
+router.delete("/blog/:userId/:postId", deletePost);
 router.patch("/blog/:postId", upload.none(), updatePost)
 router.put("/blog/:postId", upload.none(), saveId);
 

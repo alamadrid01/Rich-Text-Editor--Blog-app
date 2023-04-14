@@ -70,9 +70,10 @@ const saveId = async(req, res) => {
 }
 
 const deletePost = async (req, res) => {
+  const userId = req.params.userId;
   const postId = req.params.postId;
 
-  if (!postId) {
+  if (!postId || !userId) {
     res.status(400).json({ message: "No params was passed in" });
     return;
   }
@@ -81,6 +82,13 @@ const deletePost = async (req, res) => {
 
   try {
     const deleteBlog = await blogSchema.findOneAndDelete({ _id: postId });
+    await User.updateOne({ _id: userId }, { $pull: { posts: postId } })
+      .then((result) => {
+        console.log("result", result);
+      })
+      .catch((error) => {   
+        return res.status(500).json(error);
+      });
     if (!deleteBlog) {
       res.status(404).json({ message: "Blog post not found" });
       return;
