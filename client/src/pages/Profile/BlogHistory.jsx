@@ -14,6 +14,7 @@ const BlogHistory = () => {
     const [blogData, setBlogData] = useState([]);
     const [blogId, setBlogId] = useState("");
     const [isLoading, setIsloading] = useState(true);
+    const [noHistory, setNoHistory] = useState("")
 
     const handleClose = () => {
       setDisplayModal(false)
@@ -28,6 +29,12 @@ const BlogHistory = () => {
            `https://blog-app-v8b8.onrender.com/api/profile-history/${userId}`
          );
          const blogId = response.data;
+         
+         if(blogId.length < 1 ){
+          setIsloading(false);
+          setNoHistory("No blog has been created yet...");
+          return
+         }
 
          const getBlog = async (id) => {
            try {
@@ -82,12 +89,13 @@ const BlogHistory = () => {
               Create a blog
             </button>
           </div>
-          <div className="about flex flex-col gap-3 mt-5">
+          <div className="about flex flex-col gap-3 mt-5 relative">
             <main className=" flex flex-col md:flex-row gap-4">
               <ProfileSidebar value={"Account Setting"} />
               <section className="w-[100%] md:w-[75%] bg-white rounded-lg border border-1 border-gray-200 mt-5 py-7 px-5">
                 <section className="bg-white rounded-md mt-5 py-5 px-2">
                   <h2 className=" text-2xl text-[#262630]">History</h2>
+                  <div className=" absolute top-[50%] left-[50%] text-[18px] ">{noHistory}</div>
                   {
                     isLoading ? <div className="spinner w-[50%] mx-auto mt-5"></div> :
  
