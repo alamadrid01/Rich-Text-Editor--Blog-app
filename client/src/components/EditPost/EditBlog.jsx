@@ -144,6 +144,7 @@ const EditBlog = () => {
   const [error, setError] = useState(false);
   const [submit, setSubmit] = useState(false);
   const [blogPosts, setBlogPosts] = useState({})
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleEditorChange = (event) => {
     setEditorState(event);
@@ -218,7 +219,7 @@ const EditBlog = () => {
 
         const mainData = Response.data;
         setBlogPosts(mainData);
-        // setLoading(false);
+        setIsLoading(false);
 
         const data = JSON.parse(mainData.body);
         const contentState = convertFromRaw(data);
@@ -227,6 +228,7 @@ const EditBlog = () => {
         );
       }catch(err){
         console.log(error);
+        setIsLoading(false);
       }
     }
     getPost();
@@ -282,10 +284,12 @@ const EditBlog = () => {
     <div className="my-5">
       <ToastContainer />
       <Navbar />
-      <h1 className="font-bold text-3xl text-center mt-[80px]">
-        Update blog
-      </h1>
-      {/* <form className="flex flex-col gap-3 mt-10">
+      <h1 className="font-bold text-3xl text-center mt-[80px]">Update blog</h1>
+      {isLoading ? (
+        <div className="spinner w-[50%] mx-auto mt-5"> </div>
+      ) : (
+        <>
+          {/* <form className="flex flex-col gap-3 mt-10">
         <label className="text-lg" htmlFor="image">
           Image:
         </label>
@@ -309,180 +313,186 @@ const EditBlog = () => {
           ""
         )}
       </form> */}
-      <form className="flex flex-col gap-6 mt-10" onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-3">
-          <label className="text-lg" htmlFor="title">
-            Title:
-          </label>
-          <input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="py-3 px-2 focus:outline-indigo-600 border-[1.5px] rounded-md border-gray-400"
-            type="text"
-            id="title"
-            name="title"
-            required
-            autoFocus
-          />
-          {error && title <= 0 ? (
-            <p className="text-[red] mt-0 ml-1 text-[15px]">
-              Title of the blog is required
-            </p>
-          ) : (
-            ""
-          )}
-        </div>
-        <div className="flex flex-col gap-3">
-          <label className="text-lg" htmlFor="description">
-            Description:
-          </label>
-          <input
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="py-3 px-2 focus:outline-indigo-600 border-[1.5px] rounded-md border-gray-400"
-            type="text"
-            id="description"
-            name="description"
-            required
-          />
-          {error && description <= 0 ? (
-            <p className="text-[red] mt-0 ml-1 text-[15px]">
-              Description for the blog is required
-            </p>
-          ) : (
-            ""
-          )}
-        </div>
-        <div className="flex flex-col gap-3">
-          <label className="text-lg" htmlFor="author">
-            Author:
-          </label>
-          <input
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-            className="py-3 px-2 focus:outline-indigo-600 border-[1.5px] rounded-md border-gray-400"
-            type="text"
-            id="author"
-            name="author"
-            required
-          />
-          {error && author <= 0 ? (
-            <p className="text-[red] mt-0 ml-1 text-[15px]">
-              Author of the blog is required
-            </p>
-          ) : (
-            ""
-          )}
-        </div>
-      </form>
-      <div className="flex flex-col gap-3 mt-5">
-        <label className="text-lg" htmlFor="content">
-          Content:
-        </label>
-        <div
-          className="border border-indigo-600 min-h-[250px] p-3 rounded-md"
-          ref={decoratorRef}
-        >
-          <div className="button flex flex-wrap gap-4 mb-4 border-b-2 border-indigo-500 pb-2">
-            <button
-              onMouseDown={(e) => handleToggleBlock(e, "header-one")}
-              style={buttonStyle("header-one")}
+          <form className="flex flex-col gap-6 mt-10" onSubmit={handleSubmit}>
+            <div className="flex flex-col gap-3">
+              <label className="text-lg" htmlFor="title">
+                Title:
+              </label>
+              <input
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="py-3 px-2 focus:outline-indigo-600 border-[1.5px] rounded-md border-gray-400"
+                type="text"
+                id="title"
+                name="title"
+                required
+                autoFocus
+              />
+              {error && title <= 0 ? (
+                <p className="text-[red] mt-0 ml-1 text-[15px]">
+                  Title of the blog is required
+                </p>
+              ) : (
+                ""
+              )}
+            </div>
+            <div className="flex flex-col gap-3">
+              <label className="text-lg" htmlFor="description">
+                Description:
+              </label>
+              <input
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="py-3 px-2 focus:outline-indigo-600 border-[1.5px] rounded-md border-gray-400"
+                type="text"
+                id="description"
+                name="description"
+                required
+              />
+              {error && description <= 0 ? (
+                <p className="text-[red] mt-0 ml-1 text-[15px]">
+                  Description for the blog is required
+                </p>
+              ) : (
+                ""
+              )}
+            </div>
+            <div className="flex flex-col gap-3">
+              <label className="text-lg" htmlFor="author">
+                Author:
+              </label>
+              <input
+                value={author}
+                onChange={(e) => setAuthor(e.target.value)}
+                className="py-3 px-2 focus:outline-indigo-600 border-[1.5px] rounded-md border-gray-400"
+                type="text"
+                id="author"
+                name="author"
+                required
+              />
+              {error && author <= 0 ? (
+                <p className="text-[red] mt-0 ml-1 text-[15px]">
+                  Author of the blog is required
+                </p>
+              ) : (
+                ""
+              )}
+            </div>
+          </form>
+          <div className="flex flex-col gap-3 mt-5">
+            <label className="text-lg" htmlFor="content">
+              Content:
+            </label>
+            <div
+              className="border border-indigo-600 min-h-[250px] p-3 rounded-md"
+              ref={decoratorRef}
             >
-              H1
-            </button>
+              <div className="button flex flex-wrap gap-4 mb-4 border-b-2 border-indigo-500 pb-2">
+                <button
+                  onMouseDown={(e) => handleToggleBlock(e, "header-one")}
+                  style={buttonStyle("header-one")}
+                >
+                  H1
+                </button>
+                <button
+                  onMouseDown={(e) => handleToggleBlock(e, "header-two")}
+                  style={buttonStyle("header-two")}
+                >
+                  H2
+                </button>
+                <button
+                  onMouseDown={(e) => handleToggleBlock(e, "header-three")}
+                  style={buttonStyle("header-three")}
+                >
+                  H3
+                </button>
+                <button
+                  onMouseDown={(e) => handleToggleBlock(e, "header-four")}
+                  style={buttonStyle("header-four")}
+                >
+                  H4
+                </button>
+                <button
+                  onMouseDown={(e) => handleToggleBlock(e, "header-five")}
+                  style={buttonStyle("header-five")}
+                >
+                  H5
+                </button>
+                <button
+                  onMouseDown={(e) => handleToggleBlock(e, "header-six")}
+                  style={buttonStyle("header-six")}
+                >
+                  H6
+                </button>
+                <button
+                  onMouseDown={(e) =>
+                    handleToggleBlock(e, "unordered-list-item")
+                  }
+                  style={buttonStyle("unordered-list-item")}
+                >
+                  UL
+                </button>
+                <button
+                  onMouseDown={(e) => handleToggleBlock(e, "ordered-list-item")}
+                  style={buttonStyle("ordered-list-item")}
+                >
+                  OL
+                </button>
+                <button
+                  onMouseDown={(e) => handleToggleBlock(e, "blockquote")}
+                  style={buttonStyle("blockquote")}
+                >
+                  Blockquote
+                </button>
+                <button
+                  onMouseDown={(e) => handleToggleInline(e, "BOLD")}
+                  style={buttonInlineStyle("BOLD")}
+                  className="ml-5"
+                >
+                  Bold
+                </button>
+                <button onMouseDown={(e) => handleToggleInline(e, "ITALIC")}>
+                  Italic
+                </button>
+                <button onMouseDown={(e) => handleToggleInline(e, "UNDERLINE")}>
+                  Underline
+                </button>
+                <button
+                  onMouseDown={(e) => handleToggleInline(e, "STRIKETHROUGH")}
+                >
+                  Strikethrough
+                </button>
+              </div>
+              <Editor
+                className="my-editor"
+                editorState={editorState}
+                onChange={handleEditorChange}
+                handleKeyCommand={handleKeyCommand}
+                blockStyleFn={myBlockStyleFn}
+                spellCheck={true}
+              />
+            </div>
+            {error && contentAsText <= 0 ? (
+              <p className="text-[red] mt-0 ml-1 text-[15px]">
+                Content for the blog is required
+              </p>
+            ) : (
+              ""
+            )}
+          </div>
+          <div className="flex justify-end ">
             <button
-              onMouseDown={(e) => handleToggleBlock(e, "header-two")}
-              style={buttonStyle("header-two")}
+              className={`${
+                submit ? "bg-indigo-400" : "bg-indigo-800"
+              } rounded-md text-white px-5 py-3 align-right mt-5 hover:bg-indigo-600`}
+              onClick={submitHandler}
+              disabled={submit}
             >
-              H2
-            </button>
-            <button
-              onMouseDown={(e) => handleToggleBlock(e, "header-three")}
-              style={buttonStyle("header-three")}
-            >
-              H3
-            </button>
-            <button
-              onMouseDown={(e) => handleToggleBlock(e, "header-four")}
-              style={buttonStyle("header-four")}
-            >
-              H4
-            </button>
-            <button
-              onMouseDown={(e) => handleToggleBlock(e, "header-five")}
-              style={buttonStyle("header-five")}
-            >
-              H5
-            </button>
-            <button
-              onMouseDown={(e) => handleToggleBlock(e, "header-six")}
-              style={buttonStyle("header-six")}
-            >
-              H6
-            </button>
-            <button
-              onMouseDown={(e) => handleToggleBlock(e, "unordered-list-item")}
-              style={buttonStyle("unordered-list-item")}
-            >
-              UL
-            </button>
-            <button
-              onMouseDown={(e) => handleToggleBlock(e, "ordered-list-item")}
-              style={buttonStyle("ordered-list-item")}
-            >
-              OL
-            </button>
-            <button
-              onMouseDown={(e) => handleToggleBlock(e, "blockquote")}
-              style={buttonStyle("blockquote")}
-            >
-              Blockquote
-            </button>
-            <button
-              onMouseDown={(e) => handleToggleInline(e, "BOLD")}
-              style={buttonInlineStyle("BOLD")}
-              className="ml-5"
-            >
-              Bold
-            </button>
-            <button onMouseDown={(e) => handleToggleInline(e, "ITALIC")}>
-              Italic
-            </button>
-            <button onMouseDown={(e) => handleToggleInline(e, "UNDERLINE")}>
-              Underline
-            </button>
-            <button onMouseDown={(e) => handleToggleInline(e, "STRIKETHROUGH")}>
-              Strikethrough
+              Update post
             </button>
           </div>
-          <Editor
-            className="my-editor"
-            editorState={editorState}
-            onChange={handleEditorChange}
-            handleKeyCommand={handleKeyCommand}
-            blockStyleFn={myBlockStyleFn}
-            spellCheck={true}
-          />
-        </div>
-        {error && contentAsText <= 0 ? (
-          <p className="text-[red] mt-0 ml-1 text-[15px]">
-            Content for the blog is required
-          </p>
-        ) : (
-          ""
-        )}
-      </div>
-      <div className="flex justify-end ">
-        <button
-          className={`${
-            submit ? "bg-indigo-400" : "bg-indigo-800"
-          } rounded-md text-white px-5 py-3 align-right mt-5 hover:bg-indigo-600`}
-          onClick={submitHandler}
-          disabled={submit}
-        >
-          Update post
-        </button>
-      </div>
+        </>
+      )}
     </div>
   );
 };

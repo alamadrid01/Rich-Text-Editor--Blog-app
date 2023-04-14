@@ -13,6 +13,7 @@ const BlogHistory = () => {
     const [displayModal, setDisplayModal] = useState(false);
     const [blogData, setBlogData] = useState([]);
     const [blogId, setBlogId] = useState("");
+    const [isLoading, setIsloading] = useState(true);
 
     const handleClose = () => {
       setDisplayModal(false)
@@ -35,8 +36,10 @@ const BlogHistory = () => {
              );
              const mainData = response.data;
              setBlogData((prevBlogData) => [...prevBlogData, mainData]);
+             setIsloading(false);
            } catch (err) {
              console.log(err);
+             setIsloading(false);
              toast.error(
                "Error retrieving this post, try refreshing this page"
              );
@@ -86,6 +89,8 @@ const BlogHistory = () => {
                 <section className="bg-white rounded-md mt-5 py-5 px-2">
                   <h2 className=" text-2xl text-[#262630]">History</h2>
                   {
+                    isLoading ? <div className="spinner w-[50%] mx-auto mt-5"></div> :
+ 
                     blogData.map((items) => {
                       const blogImage = items.blogImage.path;
                       const title = items.title
