@@ -10,6 +10,7 @@ const updateRoute = require("./routes/updateProfile");
 const changePasswordRoute = require("./routes/changePassword");
 const PaymentRoute = require("./routes/payment");
 const ProfileRoute = require("./routes/getProfile");
+const HistoryRoute = require("./routes/getHistory");
 
 
 
@@ -27,6 +28,7 @@ app.use("/api", blogRouter)
 app.use("/api", ProfileRoute);
 app.use("/api", loginRoute)
 app.use("/api", updateRoute);
+app.use("/api", HistoryRoute);
 app.use("/api", PaymentRoute);
 app.use("/api", registerRoute)
 app.use("/api", changePasswordRoute);
