@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import ProfileSidebar from "./ProfileSidebar";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
-import profile from "../../assets/profile.svg";
 import DeletePost from '../../components/Modal/deletePost';
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
@@ -26,7 +25,7 @@ const BlogHistory = () => {
     const getHistory = async () => {
       try {
         const response = await axios.get(
-          `https://blog-app-v8b8.onrender.com/api/profile/history/${userId}`
+          `https://blog-app-v8b8.onrender.com/api/profile-history/${userId}`
         );
         const blogId = response.data;
 
@@ -83,16 +82,18 @@ const BlogHistory = () => {
                   <h2 className=" text-2xl text-[#262630]">History</h2>
                   {
                     blogData.map((items) => {
+                      const blogImage = items.blogImage.path;
+                      const title = items.title
                      return (
                        <div className="flex justify-between items-center px-5 mt-10">
                          <div className="flex gap-3 items-center">
                            <img
-                             src={profile}
+                             src={blogImage}
                              alt=""
                              className="w-[32px] h-[32px] rounded-full object-cover"
                            />
-                           <h3 className="text-2xl text-gray-500">
-                             My journey in tech
+                           <h3 className="text-[18px] text-gray-500">
+                             {title}
                            </h3>
                          </div>
                          <div className="flex gap-5">
