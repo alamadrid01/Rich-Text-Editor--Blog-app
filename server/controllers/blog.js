@@ -14,10 +14,9 @@ const getAllPost = async (req, res) => {
 const createPost = async (req, res) => {
   const { title, body, author, description } = req.body;
   const file = req.file;
-  console.log(req.file)
+
   const { originalname, path } = req.file;
 
-  console.log(file);
 
   if (!title || !body || !author || !file || !description) {
     res.status(400).json({ message: "Missing or no parameters" });
@@ -84,7 +83,7 @@ const deletePost = async (req, res) => {
     const deleteBlog = await blogSchema.findOneAndDelete({ _id: postId });
     await User.updateOne({ _id: userId }, { $pull: { posts: postId } })
       .then((result) => {
-        console.log("result", result);
+        
       })
       .catch((error) => {   
         return res.status(500).json(error);
