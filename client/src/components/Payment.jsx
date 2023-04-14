@@ -1,12 +1,18 @@
 import React from "react";
 import { useState } from "react";
+
 import Navbar from "./Navbar";
+import {toast, ToastContainer} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const Payment = () => {
   const [cardNumber, setCardNumber] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvv, setCvv] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const Navigate = useNavigate();
 
   const handleCardNumberChange = (e) => {
     let formattedCardNumber = formatCardNumber(e.target.value);
@@ -30,12 +36,19 @@ const Payment = () => {
     setIsLoading(true);
 
 
-    if(cardNumber === "5399 1234 5678 9010" && expiry === "12/25" && cvv === "123"){
-        alert("nice")
+    setTimeout(() => {
+      if(cardNumber === "5399 1234 5678 9010" && expiry === "12/25" && cvv === "123"){
+        toast.success("Payment successful")
         setIsLoading(false);
+
+        setTimeout(() => {
+          Navigate("/download")
+        }, 1500)
     }else{
-        alert("false")
+        toast.error("Payment failed")
+        setIsLoading(false);
     }
+    },2000)
   };
   
  const formatCardNumber = (cardNumber) => {
@@ -44,9 +57,12 @@ const Payment = () => {
    return formattedNumber.trim();
  };
 
+ 
+
 
   return (
     <div className="px-0 lg-px-5 xl:max-w-10xl xl:mx-auto pb-20">
+      <ToastContainer />
       <Navbar />
       <div className="max-w-md mx-auto mt-4">
         <h2 className="text-2xl font-bold mb-4">Payment Information</h2>

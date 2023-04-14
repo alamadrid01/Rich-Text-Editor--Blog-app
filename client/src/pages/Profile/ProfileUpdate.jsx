@@ -21,7 +21,8 @@ const ProfileUpdate = () => {
   const [location, setLocation] = useState("");
   const [avatar, setAvatar] = useState("");
   const [userId, setId] = useState("");
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  const [fullData, setFullData] = useState([]);
 
 
 
@@ -43,7 +44,23 @@ const ProfileUpdate = () => {
     setWebsite(link.website);
     setGit(link.github);
   });
-  }, [])
+
+  }, [fullData])
+
+  const fetchUser = async () => {
+    try{
+      const Response = await axios.get(
+        `https://blog-app-v8b8.onrender.com/api/profile/${userId}`
+      );
+      localStorage.setItem("aloy-user", JSON.stringify(Response.data));
+      setFullData(Response.data)
+      
+    }catch(err){
+      toast.error("Unabe to fetch user data")
+    }
+  }
+
+
 
    const handleImageChange = (e) => {
       setAvatar(e.target.files[0]);
@@ -77,11 +94,10 @@ const ProfileUpdate = () => {
           updateData
         );
         setIsLoading(false);
+        fetchUser();
         if(uploadData.status === 204){
           toast.success("Profile updated successfully")
         }
-
-    
       }catch(err){
         console.error(err)
         setIsLoading(false);
@@ -101,7 +117,7 @@ const ProfileUpdate = () => {
               <div className="flex flex-col gap-3 mt-5">
                 <label
                   htmlFor="full-name"
-                  className="text-[13px] font-bold text-gray-500 "
+                  className="text-[13px] font-bold text-violet-500 "
                 >
                   Full name
                 </label>
@@ -110,14 +126,14 @@ const ProfileUpdate = () => {
                   name="full-name"
                   value={fullName}
                   id="full-name"
-                  className="text-[16px] text-gray-700 font-[550]  outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
+                  className="  outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-violet-300"
                   onChange={(e) => setFullName(e.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-3 mt-5">
                 <label
                   htmlFor="full-name"
-                  className="text-[13px] font-bold text-gray-500"
+                  className="text-[13px] font-bold text-violet-500"
                 >
                   Username
                 </label>
@@ -126,22 +142,22 @@ const ProfileUpdate = () => {
                   name="username"
                   id="username"
                   value={"@" + username}
-                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
+                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-violet-300"
                   onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-3 mt-5">
                 <label
                   htmlFor="profile-photo"
-                  className="text-[13px] font-bold text-gray-500"
+                  className="text-[13px] font-bold text-violet-500"
                 >
                   Profile Photo
                 </label>
                 <input
                   type="file"
-                  className="block w-full text-sm text-slate-500
+                  className="block w-full text-sm ttext-violet-500
               file:mr-4 file:py-2 file:px-4
-              file:rounded-lg file:border-[1.5px] file:border-violet-600
+              file:rounded-lg file:border-[1.5px] file:border-violet-500
               file:text-md file:font-semibold
               file:bg-violet-50 file:text-violet-700
               hover:file:bg-violet-100
@@ -161,7 +177,7 @@ const ProfileUpdate = () => {
               <div className="flex flex-col gap-3 mt-5">
                 <label
                   htmlFor="full-name"
-                  className="text-[13px] font-bold text-gray-500"
+                  className="text-[13px] font-bold text-violet-500"
                 >
                   Location
                 </label>
@@ -171,7 +187,7 @@ const ProfileUpdate = () => {
                   id="location"
                   placeholder="Abuja, Nigeria"
                   value={location}
-                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
+                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-violet-300"
                   onChange={(e) => setLocation(e.target.value)}
                 />
               </div>
@@ -179,7 +195,7 @@ const ProfileUpdate = () => {
               <div className="flex flex-col gap-3 mt-5">
                 <label
                   htmlFor="bio"
-                  className="text-[13px] font-bold text-gray-500 "
+                  className="text-[13px] font-bold text-violet-500 "
                 >
                   Profile Bio (About you)
                 </label>
@@ -191,13 +207,13 @@ const ProfileUpdate = () => {
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}
                   placeholder="I am programmer from planet ..."
-                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc] "
+                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-violet-300 "
                 ></textarea>
               </div>
               <div className="flex flex-col gap-3 mt-6">
                 <label
                   htmlFor="available"
-                  className="text-[13px] font-bold text-gray-500 "
+                  className="text-[13px] font-bold text-violet-500 "
                 >
                   Available for
                 </label>
@@ -209,7 +225,7 @@ const ProfileUpdate = () => {
                   value={availabe}
                   onChange={(e) => setAvailable(e.target.value)}
                   placeholder="I am availabe for mentoring ..."
-                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc] "
+                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-violet-300 "
                 ></textarea>
               </div>
             </div>
@@ -218,7 +234,7 @@ const ProfileUpdate = () => {
               <div className="flex flex-col gap-3 mt-5">
                 <label
                   htmlFor="twitter"
-                  className="text-[13px] font-bold text-gray-500"
+                  className="text-[13px] font-bold text-violet-500"
                 >
                   Twitter Profile
                 </label>
@@ -228,14 +244,14 @@ const ProfileUpdate = () => {
                   id="twitter"
                   placeholder="https://twitter.com/AdebayoAlameen"
                   value={twitter}
-                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
+                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-violet-300"
                   onChange={(e) => setTwitter(e.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-3 mt-5">
                 <label
                   htmlFor="instagram"
-                  className="text-[13px] font-bold text-gray-500"
+                  className="text-[13px] font-bold text-violet-500"
                 >
                   Instagram Profile
                 </label>
@@ -245,14 +261,14 @@ const ProfileUpdate = () => {
                   id="instagram"
                   placeholder="https://www.instagram.com/alamadrid_d"
                   value={instagram}
-                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
+                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-violet-300"
                   onChange={(e) => setInstagram(e.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-3 mt-5">
                 <label
                   htmlFor="github"
-                  className="text-[13px] font-bold text-gray-500"
+                  className="text-[13px] font-bold text-violet-500"
                 >
                   GitHub Profile
                 </label>
@@ -262,14 +278,14 @@ const ProfileUpdate = () => {
                   id="github"
                   placeholder="https://www.github.com/alamadrid"
                   value={git}
-                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
+                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-violet-300"
                   onChange={(e) => setGit(e.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-3 mt-5">
                 <label
                   htmlFor="stack"
-                  className="text-[13px] font-bold text-gray-500"
+                  className="text-[13px] font-bold text-violet-500"
                 >
                   StackOverflow Profile
                 </label>
@@ -279,14 +295,14 @@ const ProfileUpdate = () => {
                   id="stack"
                   value={stack}
                   placeholder="https://www.stackoverflow.com/example"
-                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
+                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-violet-300"
                   onChange={(e) => setStack(e.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-3 mt-5">
                 <label
                   htmlFor="facebook"
-                  className="text-[13px] font-bold text-gray-500"
+                  className="text-[13px] font-bold text-violet-500"
                 >
                   Facebook Profile
                 </label>
@@ -296,14 +312,14 @@ const ProfileUpdate = () => {
                   id="facebook"
                   placeholder="https://www.facebook.com/example"
                   value={facebook}
-                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
+                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-violet-300"
                   onChange={(e) => setFacebook(e.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-3 mt-5">
                 <label
                   htmlFor="website"
-                  className="text-[13px] font-bold text-gray-500"
+                  className="text-[13px] font-bold text-violet-500"
                 >
                   Website URL
                 </label>
@@ -313,14 +329,14 @@ const ProfileUpdate = () => {
                   id="website"
                   placeholder="https://www.me.com"
                   value={website}
-                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
+                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-violet-300"
                   onChange={(e) => setWebsite(e.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-3 mt-5">
                 <label
                   htmlFor="linked"
-                  className="text-[13px] font-bold text-gray-500"
+                  className="text-[13px] font-bold text-violet-500"
                 >
                   LinkedIn URL
                 </label>
@@ -330,14 +346,14 @@ const ProfileUpdate = () => {
                   id="linked"
                   placeholder="https://www.linkedIn.com/example"
                   value={link}
-                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
+                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-violet-300"
                   onChange={(e) => setLinked(e.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-3 mt-5">
                 <label
                   htmlFor="email"
-                  className="text-[13px] font-bold text-gray-500 mb-[-10px]"
+                  className="text-[13px] font-bold text-violet-500 mb-[-10px]"
                 >
                   Email Address
                 </label>
@@ -352,7 +368,7 @@ const ProfileUpdate = () => {
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-[#39cdcc]"
+                  className=" outline outline-1 outline-gray-200 px-3 py-4 rounded-md focus bg-violet-50 focus:bg-white focus:outline-violet-300"
                 />
               </div>
             </div>

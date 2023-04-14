@@ -1,11 +1,12 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Editor,
   EditorState,
   RichUtils,
   CompositeDecorator,
   convertToRaw,
+  convertFromRaw
 } from "draft-js";
 import Navbar from "../Navbar";
 import { setInlineStyleOverride } from "draft-js/lib/EditorState";
@@ -85,9 +86,7 @@ const EditBlog = () => {
     },
   ]);
 
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty(mentionDecorator)
-  );
+  const [editorState, setEditorState] = useState(null);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -142,6 +141,7 @@ const EditBlog = () => {
   const [image, setImage] = useState("");
   const [error, setError] = useState(false);
   const [submit, setSubmit] = useState(false);
+  const [blogPosts, setBlogPosts] = useState({})
 
   const handleEditorChange = (event) => {
     setEditorState(event);
@@ -195,14 +195,40 @@ const EditBlog = () => {
   React.useEffect(() => {
     const currentStyle = editorState.getCurrentInlineStyle();
     currentStyle.map((item) => {
-      // console.log(item)
-      // console.log('block', block);
       if (item === "") {
-        // console.log(false)
         setInlineCheck(!inlineCheck);
       }
     });
   }, [editorState]);
+
+  const {id} = useParams();
+
+  React.useEffect(() => {
+    const getPost = async () => {
+      try{
+        const Response = await axios.get(
+          `https://blog-app-v8b8.onrender.com/profile/${id}`
+        );
+
+        console.log(Response)
+
+        // setAuthor(Response.data.author);
+
+        const mainData = Response.data;
+        setBlogPosts(mainData);
+        // setLoading(false);
+
+        const data = JSON.parse(mainData.body);
+        const contentState = convertFromRaw(data);
+        setEditorState(
+          EditorState.createWithContent(contentState, mentionDecorator)
+        );
+      }catch(err){
+        console.log(error);
+      }
+    }
+    getPost();
+  }, [])
 
   const myBlockStyleFn = (contentBlock) => {
     const type = contentBlock.getType();

@@ -91,6 +91,9 @@ const CreateBlog = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    const userData = JSON.parse(localStorage.getItem("aloy-user"));
+    const userId = userData.userId
+
 
     const contentState = editorState.getCurrentContent();
     const rawContentState = convertToRaw(contentState);
@@ -113,7 +116,26 @@ const CreateBlog = () => {
       bodyData.append("image", image);
       bodyData.append("description", description);
 
-      console.log([...bodyData]);
+      const saveId = async (slug) => {
+     
+        try{
+          await axios.put(
+            `https://blog-app-v8b8.onrender.com/api/blog/${userId}`, {
+              postId: slug
+            }
+          );
+
+           toast.success("Post has been created successfully");
+           setTimeout(() => {
+             Navigate(`/blog/${slug}`);
+           }, 1200);
+           setSubmit(false);
+        }catch(err){
+          toast.error("Error creating this post");
+          console.log(error);
+          setSubmit(false);
+        }
+      }
 
       try {
         const Response = await axios.post(
@@ -121,10 +143,9 @@ const CreateBlog = () => {
           bodyData
         );
         const slug = Response.data._id;
-        toast.success("Post has been created successfully");
-        setTimeout(() => {
-          Navigate(`/blog/${slug}`);
-        }, 1200);
+        saveId(slug);
+        console.log(slug);
+        
       } catch (err) {
         setSubmit(false)
         console.error(err.message);
@@ -181,6 +202,9 @@ const CreateBlog = () => {
   // console.log(anchorOffset);
 
   React.useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("aloy-user"));
+
+    setAuthor(userData.username)
     const contentState = editorState.getCurrentContent();
     const blockMap = contentState.getBlockMap();
     blockMap.forEach((block) => {
