@@ -86,7 +86,9 @@ const EditBlog = () => {
     },
   ]);
 
-  const [editorState, setEditorState] = useState(null);
+    const [editorState, setEditorState] = useState(() =>
+      EditorState.createEmpty(mentionDecorator)
+    );
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -98,7 +100,7 @@ const EditBlog = () => {
       title === "" ||
       rawContentState === "" ||
       author === "" ||
-      image === "" ||
+      // image === "" ||
       description === ""
     ) {
       toast.error("Yooo!, fill in all the input fields");
@@ -109,25 +111,25 @@ const EditBlog = () => {
       bodyData.append("title", title);
       bodyData.append("body", JSON.stringify(rawContentState));
       bodyData.append("author", author);
-      bodyData.append("image", image);
+      // bodyData.append("image", image);
       bodyData.append("description", description);
 
       console.log([...bodyData]);
 
       try {
-        const Response = await axios.post(
-          "https://blog-app-v8b8.onrender.com/api/blog",
+        const Response = await axios.patch(
+          `https://blog-app-v8b8.onrender.com/api/blog/${id}`,
           bodyData
         );
         const slug = Response.data._id;
-        toast.success("Post has been created successfully");
+        toast.success("Post has been updated successfully");
         setTimeout(() => {
           Navigate(`/blog/${slug}`);
         }, 1200);
       } catch (err) {
         setSubmit(false);
         console.error(err.message);
-        toast.error("Error creating this post");
+        toast.error("Error updating this post");
       }
     }
   };
@@ -207,12 +209,12 @@ const EditBlog = () => {
     const getPost = async () => {
       try{
         const Response = await axios.get(
-          `https://blog-app-v8b8.onrender.com/profile/${id}`
+          `https://blog-app-v8b8.onrender.com/api/blog/${id}`
         );
 
-        console.log(Response)
-
-        // setAuthor(Response.data.author);
+        setAuthor(Response.data.author);
+        setDescription(Response.data.description);
+        setTitle(Response.data.title);
 
         const mainData = Response.data;
         setBlogPosts(mainData);
@@ -277,14 +279,14 @@ const EditBlog = () => {
   const contentAsText = contentState.getPlainText();
 
   return (
-    <div className="my-8">
+    <div className="my-5">
       <ToastContainer />
       <Navbar />
       <h1 className="font-bold text-3xl text-center mt-[80px]">
         Update blog
       </h1>
-      <form className="flex flex-col gap-3 mt-10">
-        <label className="text-lg" htmlFor="title">
+      {/* <form className="flex flex-col gap-3 mt-10">
+        <label className="text-lg" htmlFor="image">
           Image:
         </label>
         <div className="shrink-0"></div>
@@ -306,8 +308,8 @@ const EditBlog = () => {
         ) : (
           ""
         )}
-      </form>
-      <form className="flex flex-col gap-6 mt-5" onSubmit={handleSubmit}>
+      </form> */}
+      <form className="flex flex-col gap-6 mt-10" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-3">
           <label className="text-lg" htmlFor="title">
             Title:

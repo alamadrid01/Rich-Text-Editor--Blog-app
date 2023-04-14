@@ -99,7 +99,7 @@ const BlogHistory = () => {
                          <div className="flex gap-5">
                            <button
                              className="bg-white border border-1 border-green-500 text-green-500 px-3 py-2 rounded-md  hover:bg-green-400 hover:border-none hover:text-white transition-all duration-300"
-                             onClick={() => Navigate("/create-blog")}
+                             onClick={() => Navigate(`/edit-blog/${items._id}`)}
                            >
                              Edit post
                            </button>
