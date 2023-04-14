@@ -1,14 +1,21 @@
 import axios from "axios";
 import React from "react";
 
-const DeletePost = ({ onClose }) => {
+const DeletePost = ({ onClose, postId, onDeleteSuccess }) => {
 
-  const submitHandler = async ({e, postId}) => {
+  const mainData = JSON.parse(localStorage.getItem("aloy-user"));
+  const userId = mainData.userId;
+  
+  const submitHandler = async (e) => {
     e.preventDefault();
     
     try{
-      const deleteBlog = await axios.delete(`https://blog-app-v8b8.onrender.com/${postId}`)
+      const deleteBlog = await axios.delete(
+        `https://blog-app-v8b8.onrender.com/api/blog/${userId}/${postId}`
+      );
       console.log(deleteBlog);
+        onClose();
+        onDeleteSuccess();
     }catch(err){
       console.error(err);
     }

@@ -12,56 +12,61 @@ const BlogHistory = () => {
     const Navigate = useNavigate();
     const [displayModal, setDisplayModal] = useState(false);
     const [blogData, setBlogData] = useState([]);
+    const [blogId, setBlogId] = useState("");
 
     const handleClose = () => {
       setDisplayModal(false)
     }
 
-  useEffect(() => {
     const mainData = JSON.parse(localStorage.getItem("aloy-user"));
-    console.log(mainData);
-
     const userId = mainData.userId;
-    const getHistory = async () => {
-      try {
-        const response = await axios.get(
-          `https://blog-app-v8b8.onrender.com/api/profile-history/${userId}`
-        );
-        const blogId = response.data;
 
-        const getBlog = async (id) => {
-          try {
-            const response = await axios.get(
-              `https://blog-app-v8b8.onrender.com/api/blog/${id}`
-            );
-            const mainData = response.data;
-            setBlogData((prevBlogData) => [...prevBlogData, mainData]);
-          } catch (err) {
-            console.log(err);
-            toast.error("Error retrieving this post, try refreshing this page");
-          }
-        };
+     const getHistory = async () => {
+       try {
+         const response = await axios.get(
+           `https://blog-app-v8b8.onrender.com/api/profile-history/${userId}`
+         );
+         const blogId = response.data;
 
-        blogId.forEach((item) => {
-          getBlog(item);
-        });
+         const getBlog = async (id) => {
+           try {
+             const response = await axios.get(
+               `https://blog-app-v8b8.onrender.com/api/blog/${id}`
+             );
+             const mainData = response.data;
+             setBlogData((prevBlogData) => [...prevBlogData, mainData]);
+           } catch (err) {
+             console.log(err);
+             toast.error(
+               "Error retrieving this post, try refreshing this page"
+             );
+           }
+         };
 
-        console.log(response.data);
-      } catch (err) {
-        console.log(err);
-        toast.error("Unable to get blog history");
-      }
-    };
+         blogId.forEach((item) => {
+           getBlog(item);
+         });
+       } catch (err) {
+         console.log(err);
+         toast.error("Unable to get blog history");
+       }
+     };
 
+  useEffect(() => {
     getHistory();
   }, []);
 
-  console.log(blogData)
+    const handleDeleteSuccess = () => {
+       setBlogData([]);
+      getHistory();
+      toast.success("Blog deleted succesfully");
+    };
+
 
   return (
     <>
     <ToastContainer />
-      {displayModal && <DeletePost onClose={handleClose} />}
+      {displayModal && <DeletePost onClose={handleClose} postId={blogId} onDeleteSuccess={handleDeleteSuccess}/>}
       <section className="px-0 lg-px-5 xl:max-w-10xl xl:mx-auto pb-20">
         <Navbar />
         <main>
@@ -85,7 +90,7 @@ const BlogHistory = () => {
                       const blogImage = items.blogImage.path;
                       const title = items.title
                      return (
-                       <div className="flex justify-between items-center px-5 mt-10">
+                       <div key={items._id} className="flex justify-between items-center px-5 mt-10">
                          <div className="flex gap-3 items-center">
                            <img
                              src={blogImage}
@@ -105,7 +110,10 @@ const BlogHistory = () => {
                            </button>
                            <button
                              className="bg-white border border-1 border-red-500 text-red-500 px-3 py-2 rounded-md  hover:bg-red-400 hover:border-none hover:text-white transition-all duration-300"
-                             onClick={() => setDisplayModal(true)}
+                             onClick={() => {
+                              setBlogId(items._id)
+                              setDisplayModal(true);
+                             }}
                            >
                              Delete post
                            </button>
