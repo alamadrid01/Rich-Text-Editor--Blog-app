@@ -105,10 +105,16 @@ const CreateBlog = () => {
       image === "" ||
       description === ""
     ) {
+      console.log(image);
+      const  url = URL.createObjectURL(image)
+      console.log('url', url);
+
       toast.error("Yooo!, fill in all the input fields");
       setError(true);
     } else {
       setSubmit(true)
+
+      console.log(image);
       const bodyData = new FormData();
       bodyData.append("title", title);
       bodyData.append("body", JSON.stringify(rawContentState));
@@ -116,41 +122,41 @@ const CreateBlog = () => {
       bodyData.append("image", image);
       bodyData.append("description", description);
 
-      const saveId = async (slug) => {
+      // const saveId = async (slug) => {
      
-        try{
-          await axios.put(
-            `https://blog-app-v8b8.onrender.com/api/blog/${userId}`, {
-              postId: slug
-            }
-          );
+      //   try{
+      //     await axios.put(
+      //       `https://blog-app-v8b8.onrender.com/api/blog/${userId}`, {
+      //         postId: slug
+      //       }
+      //     );
 
-           toast.success("Post has been created successfully");
-           setTimeout(() => {
-             Navigate(`/blog/${slug}`);
-           }, 1200);
-           setSubmit(false);
-        }catch(err){
-          toast.error("Error creating this post");
-          console.log(error);
-          setSubmit(false);
-        }
-      }
+      //      toast.success("Post has been created successfully");
+      //      setTimeout(() => {
+      //        Navigate(`/blog/${slug}`);
+      //      }, 1200);
+      //      setSubmit(false);
+      //   }catch(err){
+      //     toast.error("Error creating this post");
+      //     console.log(error);
+      //     setSubmit(false);
+      //   }
+      // }
 
-      try {
-        const Response = await axios.post(
-          "https://blog-app-v8b8.onrender.com/api/blog",
-          bodyData
-        );
-        const slug = Response.data._id;
-        saveId(slug);
-        console.log(slug);
+      // try {
+      //   const Response = await axios.post(
+      //     "https://blog-app-v8b8.onrender.com/api/blog",
+      //     bodyData
+      //   );
+      //   const slug = Response.data._id;
+      //   saveId(slug);
+      //   console.log(slug);
         
-      } catch (err) {
-        setSubmit(false)
-        console.error(err.message);
-        toast.error("Error creating this post");
-      }
+      // } catch (err) {
+      //   setSubmit(false)
+      //   console.error(err.message);
+      //   toast.error("Error creating this post");
+      // }
     }
   };
 
